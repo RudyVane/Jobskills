@@ -1,10 +1,14 @@
 import openai
 from dotenv import load_dotenv
 import os
+# ToDo: change files from txt to json.
 
-# Load OpenAI API key
 load_dotenv()
+
 api_key = os.getenv("API_KEY")
+if api_key is None:
+    print("Error: API_KEY not found in .env file")
+    raise ValueError("API_KEY not found in .env file")
 openai.api_key = api_key
 
 
@@ -25,7 +29,7 @@ def chat_with_gpt3(prompt):
     return response.choices[0].message['content'].strip()
 
 
-def compare_mode_interaction(skills_matrix_file, job_advert_file):
+def api_interaction(skills_matrix_file, job_advert_file):
     print("Compare mode started.")
     try:
         with open(skills_matrix_file, 'r') as file:
@@ -44,8 +48,8 @@ def compare_mode_interaction(skills_matrix_file, job_advert_file):
     ai_response = chat_with_gpt3(prompt)
 
     with open('api_responses.txt', 'a') as f:
-        f.write(f'API Response: {ai_response}\n')
-
+        f.write(f'API Response: {ai_response}\n\n')
+    print(f'API Response: {ai_response}\n')
     print("Compare mode done.")
     return ai_response
 
@@ -53,4 +57,4 @@ def compare_mode_interaction(skills_matrix_file, job_advert_file):
 if __name__ == "__main__":
     skills_matrix_file = "skills_matrix.txt"
     job_advert_file = "job_advert.txt"
-    compare_mode_interaction(skills_matrix_file, job_advert_file)
+    api_interaction(skills_matrix_file, job_advert_file)
