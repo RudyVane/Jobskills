@@ -1,0 +1,4 @@
+# Do not commit anything from this folder except the gitignore
+*
+!*.example
+!.gitignore
