@@ -1,0 +1,20 @@
+Over de vacature
+Als Medior Fullstack developer ga jij je expertise uiten in het ontwikkelen van vernieuwde updates voor de verschillende applicaties binnen dit toffe Tech bedrijf. Je bent een belangrijke schakel in het team. Je gaat zowel zelfstandig werken als samenwerken in een team aan de verschillende applicaties. Ook wordt er gekeken welke applicatie jouw voorkeur heeft om aan te werken. Hierbij worden je skills op Frontend gebied in Node en React en op Backend gebied in C#, .NET Core en MsSQL. Voorbeelden van projecten zijn;
+
+
+Een grote Cloud oplossing voor de database van meerdere klanten;
+Een kassaregister systeem voor verschillende bloemisten;
+Ook hebben ze een platform ontwikkeld met bijbehorende App voor gemeentes waarop werklui zich aan kunnen melden voor verschillende klussen. 
+Je komt het team van 3 developers versterken omdat het bedrijf elk jaar groeit. Er zijn genoeg mogelijkheden om jezelf te blijven ontwikkelen. Je werkt samen met de Lead developer waar je veel van kan leren.
+
+
+Je hebt minimaal 3 jaar ervaring als Fullstack Developer;
+Kennis van en ervaring met Node en React;
+Kennis van en ervaring met JavaScript, HTML, CSS3, C# en .NET Core;
+Je bent een teamplayer en houdt ervan samen te sparren;
+Ervaring met SQL Databases (SQLite, MySQL en MSSQL).
+Salaris tussen de €3000 - €3500 afhankelijk van je ervaring;
+Een goede pensioenregeling;
+24 vakantiedagen;
+Ruimte voor omscholing en persoonlijke ontwikkeling;
+Een positie in een professioneel team met vrijheid en verantwoordelijkheid.
