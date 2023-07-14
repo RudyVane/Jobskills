@@ -1,0 +1,9 @@
+User Stories:
+
+1. As a user, I want to be able to input the URL of a job offer so that the application can access it and extract the required skills.
+2. As a user, I want the application to use ChatGPT to scrape the required skills from the job offer URL.
+3. As a user, I want to provide my skill matrix to the application, listing the skills I possess.
+4. As a user, I want the application to compare the required skills extracted from the job offer with my skill matrix.
+5. As a user, I want the application to generate a list of matched skills, indicating which required skills from the job offer match my existing skills.
+6. As a user, I want the application to generate a list of missing skills, indicating which required skills from the job offer are not present in my skill matrix.
+7. As a user, I want the application to provide guidance or recommendations on how to acquire the missing skills, such as suggesting online courses, resources, or training programs.
