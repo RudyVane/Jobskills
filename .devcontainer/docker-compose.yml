@@ -12,12 +12,24 @@ services:
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
 
+    ports:
+      - "8080"
+
     # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
     #network_mode: service:db
 
     # Use "forwardPorts" in **devcontainer.json** to forward an app port locally.
     # (Adding the "ports" property to this file will not forward from a Codespace.)
-
+  
+  ngrok:
+    image: ngrok/ngrok:3-alpine
+    command:
+      - 'http'
+      - 'app:8080'
+      - '--config'
+      - '/run/secrets/ngrok_conf'
+    secrets:
+      - ngrok_conf
   # db:
   #   image: postgres:latest
   #   restart: unless-stopped
@@ -33,3 +45,7 @@ services:
 
 volumes:
   postgres-data:
+
+secrets:
+  ngrok_conf:
+    file: ../local/ngrok.yml
