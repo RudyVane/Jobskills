@@ -1,9 +1,40 @@
-User Stories:
+User Stories for Developers in a Scrum Environment:
 
-1. As a user, I want to be able to input the URL of a job offer so that the application can access it and extract the required skills.
-2. As a user, I want the application to use ChatGPT to scrape the required skills from the job offer URL.
-3. As a user, I want to provide my skill matrix to the application, listing the skills I possess.
-4. As a user, I want the application to compare the required skills extracted from the job offer with my skill matrix.
-5. As a user, I want the application to generate a list of matched skills, indicating which required skills from the job offer match my existing skills.
-6. As a user, I want the application to generate a list of missing skills, indicating which required skills from the job offer are not present in my skill matrix.
-7. As a user, I want the application to provide guidance or recommendations on how to acquire the missing skills, such as suggesting online courses, resources, or training programs.
+1. As a developer, I want to implement a URL input functionality so that the Python application can receive the job offer URL from the user.
+   - Task 1: Create a form or input field to accept the URL input.
+   - Task 2: Validate the URL format and handle any potential errors or invalid inputs.
+
+2. As a developer, I want to integrate ChatGPT into the application to scrape the required skills from the job offer URL.
+   - Task 1: Research and identify a suitable ChatGPT library or API for Python.
+   - Task 2: Implement the integration with the selected ChatGPT solution.
+   - Task 3: Extract the required skills from the job offer URL using the ChatGPT integration.
+
+3. As a developer, I want to design and implement a skill matrix input feature for the user to provide their existing skills.
+   - Task 1: Design and create a user interface component to input the skill matrix.
+   - Task 2: Develop a data structure to store and manage the user's skill matrix.
+   - Task 3: Implement the functionality to capture and validate the skill matrix input.
+
+4. As a developer, I want to compare the required skills with the user's skill matrix and generate a list of matched skills.
+   - Task 1: Define the logic for comparing the skills extracted from the job offer with the user's skill matrix.
+   - Task 2: Implement the skill matching algorithm.
+   - Task 3: Generate a list of matched skills based on the comparison results.
+
+5. As a developer, I want to generate a list of missing skills by identifying the skills from the job offer that are not present in the user's skill matrix.
+   - Task 1: Implement the logic to compare the required skills with the user's skill matrix and identify the missing skills.
+   - Task 2: Generate a list of missing skills based on the comparison results.
+
+6. As a developer, I want to provide recommendations on acquiring the missing skills.
+   - Task 1: Research and gather relevant learning resources, such as online courses, tutorials, or documentation.
+   - Task 2: Design a recommendation system to suggest appropriate learning resources based on the missing skills.
+   - Task 3: Implement the recommendation feature and integrate it into the application.
+
+7. As a developer, I want to include information on the proficiency level required for each missing skill.
+   - Task 1: Define a scale or categorization system for skill proficiency levels.
+   - Task 2: Enhance the missing skills list to include the required proficiency level for each skill.
+
+8. As a developer, I want to enable progress tracking for the user as they acquire new skills.
+   - Task 1: Develop a mechanism to update the user's skill matrix and reflect the changes in the application.
+   - Task 2: Implement a user interface component to display and update the user's skill matrix.
+   - Task 3: Integrate the progress tracking functionality with the matched and missing skills lists.
+
+These user stories have been divided into tasks that developers can work on in a Scrum environment. The tasks focus on implementing specific features, integrating external libraries, designing user interfaces, and ensuring the application accurately matches and tracks the user's skills.
