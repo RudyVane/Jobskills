@@ -1,0 +1,32 @@
+API Requirements for Skill Extraction, Comparison, and Calculation
+
+To extract and compare skills between a job offer text and a user's skill matrix using ChatGPT, an API should be designed to fulfill the following requirements:
+
+Skill Extraction from Job Offer Text:
+
+Input: The API should accept the job offer text as input, which contains relevant details about the job, including the required skills section.
+Parsing and Extraction: The API should implement a logic or algorithm to parse the job offer text and extract the required skills. Techniques like natural language processing (NLP) can be used to identify keywords or entities related to skills.
+Output: The API should provide the extracted skills as output in a structured format, such as a list or JSON object. Each skill should be clearly identified and distinguishable.
+Optional: The API can offer skill classification or categorization based on their nature or domain. For example, grouping programming languages, frameworks, or soft skills separately.
+Skill Extraction from User's Skill Matrix:
+
+Input: The API should receive the user's skill matrix as input, preferably in a structured data format such as a list, JSON, or a database query result. The skill matrix should include the skills possessed by the user, including additional details like proficiency levels or years of experience.
+Extraction Logic: The API should implement a logic or algorithm to extract the skills from the user's skill matrix. This can involve parsing the structured data object and identifying individual skills present.
+Output: The API should provide the extracted skills from the user's skill matrix as output, structured as a list or JSON object. Each skill should be clearly identified and distinguishable.
+Optional: The API can support skill classification or categorization to aid further analysis or organization of the skills, such as grouping programming languages, frameworks, or soft skills separately.
+Comparison of Job Offer Skills and User Skills:
+
+Job Offer Skills: The API should receive the list of required skills extracted from the job offer text as input.
+User Skills: The API should receive the list of skills extracted from the user's skill matrix as input.
+Comparison Logic: The API needs to implement a logic or algorithm to compare the two lists of skills and determine the matches and mismatches.
+Comparison Result: The API should provide the comparison result as output, indicating the matched skills and the missing skills between the job offer skills and the user skills. The output can be structured as a list, JSON object, or any other suitable format.
+Optional: The API can include additional information about the comparison, such as proficiency levels or experience required for each skill, the level of match (exact or partial), or other relevant details.
+Calculation of Matching Percentage:
+
+Job Offer Skills: ChatGPT requires the list of required skills extracted from the job offer as input.
+User Skills: ChatGPT needs the list of skills extracted from the user's skill matrix as input.
+Comparison Logic: ChatGPT should have access to a logic or algorithm that compares the job offer skills with the user skills, identifying the matches and mismatches.
+Matched Skills List: The API or logic used by ChatGPT should generate a list of skills that match between the job offer skills and the user skills, indicating the common skills.
+Missing Skills List: Similarly, the API or logic used by ChatGPT should generate a list of skills present in the job offer skills but missing from the user skills, indicating the skills the user needs to acquire.
+Matching Percentage Calculation: ChatGPT needs a mechanism to calculate the percentage of matching skills between the job offer and the user's skill matrix. This can be done by dividing the number of matched skills by the total number of job offer skills and multiplying by 100 to obtain the percentage.
+By fulfilling these requirements, the API will enable ChatGPT to extract skills from the job offer and user's skill matrix, compare the skills, generate lists of matched and missing skills, and calculate the matching percentage.
