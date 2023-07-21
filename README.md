@@ -1,6 +1,6 @@
 # Skill Extraction and Comparison API
 
-The Skill Extraction and Comparison API is designed to facilitate the extraction of skills from a job offer text and a user's skill matrix, as well as compare the extracted skills to generate a list of matching skills, a list of missing skills, and calculate the matching percentage. This API leverages ChatGPT, an advanced language model, to perform these tasks.
+The Skill Extraction and Comparison API is designed to facilitate the extraction of skills from a job offer text and a user's skill matrix, as well as compare the extracted skills to generate a list of matching skills, a list of missing skills, and calculate the matching percentage. This API leverages ChatGPT, an advanced language model, to perform these tasks. This API will work as a Discord bot.
 
 ## Purpose
 
