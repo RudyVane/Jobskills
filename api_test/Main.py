@@ -52,6 +52,8 @@ def chat_with_gpt3(prompt, job_advert_list):
                "\nIf a skill doesn't appear in the skills matrix, indicate 'No' in the 'In Skills Matrix' column and leave the 'Level of Proficiency' column empty. " +
                "\nConsider variations in terminology, phrasing, or spelling that might indicate a match between a skill in the job advert and a skill in the skills matrix."
 
+                # TODO: Comparable skills should still be matched somehow.
+
             },
             {"role": "user", "content": prompt},
         ],
@@ -83,6 +85,8 @@ def api_interaction(skills_matrix_file, job_advert_file):
     print("sending job advert for extraction")
     job_advert_list = job_extract(prompt1)
     print("job advert extracted: ")
+    with open('api_responses.txt', 'a') as f:
+        f.write(f'API Response: job advert list; {job_advert_list}\n\n')
     print(f'API Response: job advert list; {job_advert_list}\n')
     prompt2 = f"Here is a skills matrix: {skills_matrix}\nAnd a list of skills from a job advert: {job_advert_list}\n " \
               f"please compare the two in a table format."
@@ -90,7 +94,7 @@ def api_interaction(skills_matrix_file, job_advert_file):
 
 
     with open('api_responses.txt', 'a') as f:
-        f.write(f'API Response: {ai_response}\n\n')
+        f.write(f'API Response: comparison;{ai_response}\n\n')
     print(f'API Response: {ai_response}\n')
     print("Compare mode done.")
     return ai_response
