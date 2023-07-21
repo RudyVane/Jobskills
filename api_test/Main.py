@@ -46,7 +46,7 @@ def chat_with_gpt3(prompt, job_advert_list):
             {
                 "role": "system",
                 "content": "Given the extracted list of skills from the job advert: " + str(job_advert_list) +
-               "\nand the provided skills matrix, generate a table with the following columns: 'Skill/Experience,' 'In Skills Matrix,' 'Level of Proficiency.' " +
+               "\nand the provided skills matrix, generate a table with the following columns: 'Required Skill,' 'In Skills Matrix,' 'Level of Proficiency.' " +
                "\nIn the 'Skill/Experience' column, list all the skills extracted from the job advert. " +
                "\nFor each listed skill, check if it appears in the provided skills matrix. If it does, indicate 'Yes' in the 'In Skills Matrix' column and provide the level of proficiency from the skills matrix in the 'Level of Proficiency' column. " +
                "\nIf a skill doesn't appear in the skills matrix, indicate 'No' in the 'In Skills Matrix' column and leave the 'Level of Proficiency' column empty. " +
