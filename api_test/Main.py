@@ -45,15 +45,11 @@ def chat_with_gpt3(prompt, job_advert_list):
         messages=[
             {
                 "role": "system",
-                "content": "Given the extracted list of skills from the job advert: " + str(job_advert_list) +
-               "\nand the provided skills matrix, generate a table with the following columns: 'Required Skill,' 'In Skills Matrix,' 'Level of Proficiency.' " +
-               "\nIn the 'Skill/Experience' column, list all the skills extracted from the job advert. " +
-               "\nFor each listed skill, check if it appears in the provided skills matrix. If it does, indicate 'Yes' in the 'In Skills Matrix' column and provide the level of proficiency from the skills matrix in the 'Level of Proficiency' column. " +
-               "\nIf a skill doesn't appear in the skills matrix, indicate 'No' in the 'In Skills Matrix' column and leave the 'Level of Proficiency' column empty. " +
-               "\nConsider variations in terminology, phrasing, or spelling that might indicate a match between a skill in the job advert and a skill in the skills matrix."
-
+                "content": "Given the skills from the job advert: " + str(job_advert_list) +
+                "\nand the provided skills matrix, construct a table with columns: 'Required Skill,' 'In Skills Matrix,' and 'Level of Proficiency.' " +
+                "\nFor each skill from the job advert, determine if there's a direct match or a related term in the skills matrix. If there is, note 'Yes' in the 'In Skills Matrix' column, and specify the 'Level of Proficiency' from the skills matrix. If not, write 'No' in the 'In Skills Matrix' column, and leave 'Level of Proficiency' blank. " +
+                "\nKeep in mind that a skill might be expressed differently in the job advert and the skills matrix. A term or a phrase might not match exactly but could still refer to the same skill or a relevant one."
                 # TODO: Comparable skills should still be matched somehow.
-
             },
             {"role": "user", "content": prompt},
         ],
