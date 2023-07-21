@@ -2,7 +2,7 @@ import os
 
 from flask import Flask
 from dotenv import load_dotenv
-from flask_discord_interactions import DiscordInteractions
+from flask_discord_interactions import DiscordInteractions, Attachment, Message
 
 app = Flask(__name__)
 discord = DiscordInteractions(app)
@@ -14,6 +14,13 @@ def hello():
 @discord.command()
 def ping(ctx):
     return "Pong!"
+
+@discord.command()
+def offer(ctx, item: Attachment):
+    return Message(
+        content="thanks!",
+        ephemeral=True
+    )
 
 
 if __name__ == '__main__':
