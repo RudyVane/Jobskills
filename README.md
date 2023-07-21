@@ -37,6 +37,7 @@ To utilize the API, follow these steps:
 ## Conclusion
 
 The Skill Extraction and Comparison API provides a powerful solution for extracting skills from job offer texts and user skill matrices, comparing them, and generating valuable insights. It empowers users to identify the skills they possess, determine the skills they need to acquire, and assess their skills' alignment with job requirements. By leveraging ChatGPT's language capabilities, this API offers a versatile and efficient way to streamline skill extraction and comparison processes.
+The API will run as a bot on a Discordchannel. The user can communicate with the bot and provide the job offer text and user's resume. The bot returns the matched skills in the channel only visible to the user.
 
 The first version will be a MVP, which can be expanded with more features.
 
