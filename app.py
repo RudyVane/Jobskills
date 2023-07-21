@@ -1,31 +1,28 @@
+import os
+
 from flask import Flask
-from discord.interaction import discord_interaction
-from interactions import Client
-from interactions.api.events import RawGatewayEvent
+from dotenv import load_dotenv
+from flask_discord_interactions import DiscordInteractions
 
 app = Flask(__name__)
-
-app.register_blueprint(discord_interaction, url_prefix='/interaction')
+discord = DiscordInteractions(app)
 
 @app.route("/")
 def hello():
     return "Hello World"
 
-async def init_discord_handler():
-    client = Client()
-    
-    # TODO: monkey-patch to intercept initial response
-    client.http.post_initial_response = None
-
-    # TODO: dispatch webhook payload to client
-    client.dispatch(RawGatewayEvent(payload, override_name="raw_interaction_create", bot=client))
-
-    # TODO: read intercepted response and return
+@discord.command()
+def ping(ctx):
+    return "Pong!"
 
 
 if __name__ == '__main__':
     print(app.url_map)
-    app.config.update(
-        DISCORD_PUBLIC_KEY="ada8547aa7193a4b570c7bed1b13d523a07b5a20139a57753f7715b21c3d9b1f"
-    )
+
+    load_dotenv()
+    app.config.from_prefixed_env()
+    
+    discord.set_route("/interaction/")
+    discord.update_commands(guild_id=os.environ["TESTING_GUILD"])
+
     app.run(host="app", port=8080, debug=True)

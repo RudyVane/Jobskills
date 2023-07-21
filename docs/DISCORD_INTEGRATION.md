@@ -8,7 +8,7 @@
 ## Registering discord application
 
 1. Create a new discord application
-2. Copy the `public key` into `app.py`
+2. Define `DISCORD_CLIENT_ID`, `DISCORD_CLIENT_SECRET`, `DISCORD_PUBLIC_KEY` based on the variables provided by discord (put in .env prefixed by FLASK_)
 3. Run `python app.py`
 4. Start ngrok tunnel
 5. Enter `{ngrok_endpoint_url}/interaction/` as the "interactions endpoint url"
