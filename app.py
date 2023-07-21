@@ -24,12 +24,12 @@ def offer(ctx, item: Attachment):
 
 
 if __name__ == '__main__':
-    print(app.url_map)
-
     load_dotenv()
     app.config.from_prefixed_env()
     
     discord.set_route("/interaction/")
     discord.update_commands(guild_id=os.environ["TESTING_GUILD"])
+
+    print(app.url_map)
 
     app.run(host="app", port=8080, debug=True)
