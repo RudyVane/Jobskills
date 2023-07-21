@@ -1,6 +1,5 @@
-# Skill Extraction and Comparison API
-
-The Skill Extraction and Comparison API is designed to facilitate the extraction of skills from a job offer text and a user's skill matrix, as well as compare the extracted skills to generate a list of matching skills, a list of missing skills, and calculate the matching percentage. This API leverages ChatGPT, an advanced language model, to perform these tasks. This API will work as a Discord bot.
+# Jobskills-matcher
+The Jobskill-matcher is designed to facilitate the extraction of skills from a job offer text and a user's skill matrix, as well as compare the extracted skills to generate a list of matching skills, a list of missing skills, and calculate the matching percentage. This API leverages ChatGPT, an advanced language model, to perform these tasks. This API will work as a Discord bot.
 
 ## Purpose
 
@@ -36,7 +35,7 @@ To utilize the API, follow these steps:
 
 ## Conclusion
 
-The Skill Extraction and Comparison API provides a powerful solution for extracting skills from job offer texts and user skill matrices, comparing them, and generating valuable insights. It empowers users to identify the skills they possess, determine the skills they need to acquire, and assess their skills' alignment with job requirements. By leveraging ChatGPT's language capabilities, this API offers a versatile and efficient way to streamline skill extraction and comparison processes.
+The Jobskills-matcher provides a powerful solution for extracting skills from job offer texts and user skill matrices, comparing them, and generating valuable insights. It empowers users to identify the skills they possess, determine the skills they need to acquire, and assess their skills' alignment with job requirements. By leveraging ChatGPT's language capabilities, this API offers a versatile and efficient way to streamline skill extraction and comparison processes.
 The API will run as a bot on a Discordchannel. The user can communicate with the bot and provide the job offer text and user's resume. The bot returns the matched skills in the channel only visible to the user.
 
 The first version will be a MVP, which can be expanded with more features.
