@@ -1,18 +1,18 @@
-
-Skill/Experience | In Job Advert | Level of Proficiency
-Node.js | Yes | Advanced
-React.js | Yes | Advanced
-JavaScript | Yes | Expert
-HTML | Yes | Expert
-CSS3 | Yes | Advanced
-C# | Yes | Intermediate
-.NET Core | Yes | Intermediate
-SQL Databases | Yes | Advanced
-Python | No | Beginner
-Teamwork | Yes | Excellent
-Problem-Solving | No | Excellent
-Project Management | No | Basic
-Java | No | Intermediate
-Git | No | Intermediate
-Communication | No | Excellent
-Agile Methodology | No | Intermediate
+Skill/Experience | Level of Proficiency
+-----------------|---------------------
+Node.js | Advanced
+React.js | Advanced
+JavaScript | Expert
+HTML | Expert
+CSS3 | Advanced
+C# | Intermediate
+.NET Core | Intermediate
+SQL Databases | Advanced
+Python | Beginner
+Teamwork | Excellent
+Problem-Solving | Excellent
+Project Management | Basic
+Java | Intermediate
+Git | Intermediate
+Communication | Excellent
+Agile Methodology | Intermediate
