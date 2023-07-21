@@ -1,2 +1,7 @@
 version: 2
 authtoken: SOME_TOKEN_HERE
+tunnels:
+  discord_interactions:
+    labels:
+      - edge=NGROK_TUNNEL_LABEL
+    addr: "app:8080"

@@ -24,12 +24,14 @@ services:
   ngrok:
     image: ngrok/ngrok:3-alpine
     command:
-      - 'http'
-      - 'app:8080'
+      - 'start'
+      - 'discord_interactions'
       - '--config'
       - '/run/secrets/ngrok_conf'
     secrets:
       - ngrok_conf
+    ports:
+      - "4040"
   # db:
   #   image: postgres:latest
   #   restart: unless-stopped
