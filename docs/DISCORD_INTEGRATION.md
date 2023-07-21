@@ -13,3 +13,6 @@
 4. Start ngrok tunnel
 5. Enter `{ngrok_endpoint_url}/interaction/` as the "interactions endpoint url"
 6. Save changes, if it succeeds you've succesfully registered the endpoint.
+
+
+See https://flask-discord-interactions.readthedocs.io/en/latest/botsetup.html for a more thorough guide
