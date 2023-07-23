@@ -17,7 +17,7 @@
 <?php
 
 // Your OpenAI API key
-$api_key = "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";
+$api_key = "";
 
 // Function to make the API call using cURL
 function call_openai_api($api_key, $data) {
