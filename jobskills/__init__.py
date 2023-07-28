@@ -1,7 +1,8 @@
+import os
+
 from dotenv import load_dotenv
 from flask import Flask
 from .discord.flask import setup as discord_setup
-from api_test.gpt import api_interaction
 # from .scrape import scrape
 
 def main():
@@ -16,12 +17,15 @@ def main():
     def hello():
         return "Hello World"
     
-    @app.route("/test")
-    def gpttest():
-        skills_matrix_file = "./api_test/skills_matrix.txt"
-        job_advert_file = "./api_test/job_advert.txt"
-        result = api_interaction(skills_matrix_file, job_advert_file)
-        return result
+    if 'API_KEY' in os.environ:
+        from api_test.gpt import api_interaction
+    
+        @app.route("/test")
+        def gpttest():
+            skills_matrix_file = "./api_test/skills_matrix.txt"
+            job_advert_file = "./api_test/job_advert.txt"
+            result = api_interaction(skills_matrix_file, job_advert_file)
+            return result
     
     #Todo:
     # -implement functionality in a proper format.
