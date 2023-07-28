@@ -1,21 +1,15 @@
 import os
 
 from flask import Flask
-from flask_discord_interactions import DiscordInteractions, Attachment, Message
+from flask_discord_interactions import DiscordInteractions
 
+from .commands import blueprints
 
 def setup(app: Flask):
     discord = DiscordInteractions(app)
 
-    # TODO: split off commands with DiscordInteractionBlueprint
-
-    @discord.command()
-    def ping(ctx):
-        return "Pong!"
-
-    @discord.command()
-    def offer(ctx, item: Attachment):
-        return Message(content="thanks!", ephemeral=True)
+    for bp in blueprints:
+        discord.register_blueprint(bp)
 
     discord.set_route("/interaction/")
 
