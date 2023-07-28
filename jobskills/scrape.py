@@ -2,11 +2,14 @@ from os import environ
 import tldextract
 from scrapy.crawler import CrawlerRunner
 from scrapy.utils.log import configure_logging
-import scraper.spiders as spiders
+from .scraper import spiders
+from .scraper import settings as s
+from scrapy.settings import Settings
 from scrapy.utils.project import get_project_settings
 from crochet import setup
 setup()
-settings = get_project_settings()
+# settings = get_project_settings()
+settings = Settings({k: getattr(s,k) for k in dir(s) if not k.startswith('_')})
 configure_logging(settings) 
 
 readability_blacklist = ["indeed"]

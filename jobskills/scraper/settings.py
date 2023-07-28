@@ -8,11 +8,13 @@
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 from os import environ
+from dotenv import load_dotenv
+load_dotenv()
 
-BOT_NAME = "scraper"
+BOT_NAME = "jobskills.scraper"
 
-SPIDER_MODULES = ["scraper.spiders"]
-NEWSPIDER_MODULE = "scraper.spiders"
+SPIDER_MODULES = ["jobskills.scraper.spiders"]
+NEWSPIDER_MODULE = "jobskills.scraper.spiders"
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -54,7 +56,7 @@ DEFAULT_REQUEST_HEADERS = {
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 SPIDER_MIDDLEWARES = {
     'scrapy_splash.SplashDeduplicateArgsMiddleware': 100,
-    "scraper.middlewares.ScraperSpiderMiddleware": 543,
+    "jobskills.scraper.middlewares.ScraperSpiderMiddleware": 543,
 }
 
 # Enable or disable downloader middlewares
