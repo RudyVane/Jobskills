@@ -11,10 +11,18 @@ Flask = "^2.3.2"
 Flask-Discord-Interactions = "^2.1.2"
 python-dotenv = "^1.0.0"
 openai = "^0.27.8"
+scrapy-splash = "^0.9.0"
+scrapy = "^2.9.0"
+beautifulsoup4 = "^4.12.2"
+readability-lxml = "^0.8.1"
+crochet = "^2.1.1"
 
 [tool.poetry.scripts]
 app = "jobskills:main"
 
+
+[tool.poetry.group.dev.dependencies]
+ipython = "^8.14.0"
 
 [build-system]
 requires = ["poetry-core"]
