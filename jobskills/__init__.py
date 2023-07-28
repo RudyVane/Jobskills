@@ -17,4 +17,4 @@ def main():
 
     print(app.url_map)
 
-    app.run(host="app", port=8080, debug=True)
+    app.run(host="::", port=8080, debug=True)
