@@ -15,13 +15,10 @@ def setup(app: Flask):
 
     @discord.command()
     def offer(ctx, item: Attachment):
-        return Message(
-            content="thanks!",
-            ephemeral=True
-        )
+        return Message(content="thanks!", ephemeral=True)
 
     discord.set_route("/interaction/")
-    
+
     if "TESTING_GUILD" in os.environ:
         discord.update_commands(guild_id=os.environ["TESTING_GUILD"])
     else:

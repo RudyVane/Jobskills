@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 from flask import Flask
 from .discord.flask import setup as discord_setup
 
+
 def main():
     load_dotenv()
 
