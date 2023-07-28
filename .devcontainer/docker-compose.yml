@@ -5,6 +5,8 @@ services:
     build:
       context: ..
       dockerfile: .devcontainer/Dockerfile
+      args:
+        - POETRY_VERSION=1.5.1
 
     volumes:
       - ../..:/workspaces:cached
