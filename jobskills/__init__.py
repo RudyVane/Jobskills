@@ -2,9 +2,12 @@ from dotenv import load_dotenv
 from flask import Flask
 from .discord.flask import setup as discord_setup
 from api_test.gpt import api_interaction
+# from .scrape import scrape
 
 def main():
     load_dotenv()
+    # as example of how to use the crawler:
+    # scrape("https://www.yelgo.nl/vacatures/junior-developer-software/", print)
 
     app = Flask(__name__)
     app.config.from_prefixed_env()
