@@ -1,30 +1,34 @@
 from os import environ
 import tldextract
-from scrapy.settings import Settings
 from scrapy.crawler import CrawlerRunner
-from twisted.internet import reactor
+from scrapy.utils.log import configure_logging
 import scraper.spiders as spiders
 from scrapy.utils.project import get_project_settings
 from crochet import setup
 setup()
+settings = get_project_settings()
+configure_logging(settings) 
 
 readability_blacklist = ["indeed"]
 
 def getSpider(url):
+    ret = spiders.ReadabilitySpider
     tld = tldextract.extract(url)
+    if(tld.domain in readability_blacklist):
+        ret = spiders.GenericSpider
     match(tld.domain):
         case "indeed":
-            return spiders.IndeedSpider
-    if(tld.domain in readability_blacklist):
-        return spiders.GenericSpider
-    return spiders.ReadabilitySpider
+            ret = spiders.IndeedSpider
+    
+    print(ret)
+    return ret
 
 def transformUrl(url):
     return "https://webcache.googleusercontent.com/search?q=cache:"+url
 
 def scrape(url, cb):
     res = []
-    settings = get_project_settings()
+    print(settings)
     class ResPipeline(object):
         def process_item(self, item, spider):
             res.append(dict(item))
@@ -32,5 +36,6 @@ def scrape(url, cb):
     
     settings.set("ITEM_PIPELINES", {**settings.get("ITEM_PIPELINES"), ResPipeline: 1000})
     runner = CrawlerRunner(settings)
-    d = runner.crawl(getSpider(url), start_urls=[transformUrl(url)])
+    s = getSpider(url)
+    d = runner.crawl(s, start_urls=[transformUrl(url)], )
     d.addCallback(lambda _: cb(res))

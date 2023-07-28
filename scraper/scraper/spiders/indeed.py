@@ -3,9 +3,10 @@ from bs4 import BeautifulSoup
 
 class IndeedSpider(scrapy.Spider):
     name = "indeed"
-    allowed_domains = ["indeed.com", "indeed.nl"]
+    # allowed_domains = ["indeed.com", "indeed.nl"]
 
     def parse(self, response):
+        print("Started parse in IndeedSpider")
         text = BeautifulSoup(response.css('div.jobsearch-JobComponent').get(), 'html.parser')
         text.find("div", {"id","jobsearch-ViewJobButtons-container"}).decompose()
         

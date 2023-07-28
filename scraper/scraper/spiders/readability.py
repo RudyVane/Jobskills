@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 class ReadabilitySpider(scrapy.Spider):
     name = "readability"
     def parse(self, response):
+        print("Started readability spider parse")
         doc = Document(response.text)
         
         yield {
