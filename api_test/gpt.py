@@ -93,12 +93,11 @@ def job_compare(prompt, job_advert_list):
 
 def api_interaction(skills_matrix_file, job_advert_file):
     print("Compare mode started.")
-    try:
+    try: 
         with open(skills_matrix_file, 'r') as file:
             skills_matrix = file.read()
     except FileNotFoundError:
         return "Skills Matrix file not found."
-
     try:
         with open(job_advert_file, 'r') as file:
             job_advert = file.read().replace('\n', '')
