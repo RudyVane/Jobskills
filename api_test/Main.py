@@ -1,7 +1,8 @@
 import openai
 from dotenv import load_dotenv
 import os
-# ToDo: change files from txt to json.
+import time
+# ToDo: Documentation.
 
 load_dotenv()
 
@@ -12,55 +13,71 @@ if api_key is None:
 openai.api_key = api_key
 
 
-# Function to chat with GPT-3
+# Function to extract skills from job advert.
 def job_extract(prompt):
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {
-                "role": "system",
-                "content": "You are an AI that understands both explicit and implicit meaning in text. "
-                "Please read the job advert provided and identify all the relevant technical "
-                "and non-technical skills mentioned. "
-                "Consider exact wording, synonyms, and related technologies. "
-                "Also, differentiate between required competencies and desirable skills. "
-                "Use this information to create a comprehensive list of skills found in the job advert."
-            },
-            {
-                "role": "user", "content": prompt
-            }
-        ],
-        max_tokens=500,
-        n=1,
-        stop=None,
-        temperature=0.1,
-    )
-    print("API prompted")
-    return response.choices[0].message['content'].strip()
+    for attempt in range(3):
+        try:
+            response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "You are an AI that understands both explicit and implicit meaning in text. "
+                                   "Please read the job advert provided and identify all the relevant technical "
+                                   "and non-technical skills mentioned. "
+                                   "Consider exact wording, synonyms, and related technologies. "
+                                   "Also, differentiate between required competencies and desirable skills. "
+                                   "Use this information to create a comprehensive list of skills found in the job advert."
+                    },
+                    {
+                        "role": "user", "content": prompt
+                    }
+                ],
+                max_tokens=500,
+                n=1,
+                stop=None,
+                temperature=0.1,
+            )
+            print("API prompted")
+            return response.choices[0].message['content'].strip()
+
+        except openai.error.OpenAIError as e:
+            print(f"An error occurred: {e}. Attempt {attempt + 1} of 3. Trying again after delay...")
+            time.sleep(10)
+
+    print("API interaction failed. Please try again later.")
+    exit(1)
 
 
-def chat_with_gpt3(prompt, job_advert_list):
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {
-                "role": "system",
-                "content": "Given the skills from the job advert: " + str(job_advert_list) +
-                "\nand the provided skills matrix, construct a table with columns: 'Required Skill,' 'In Skills Matrix,' and 'Level of Proficiency.' " +
-                "\nFor each skill from the job advert, determine if there's a direct match or a related term in the skills matrix. If there is, note 'Yes' in the 'In Skills Matrix' column, and specify the 'Level of Proficiency' from the skills matrix. If not, write 'No' in the 'In Skills Matrix' column, and leave 'Level of Proficiency' blank. " +
-                "\nKeep in mind that a skill might be expressed differently in the job advert and the skills matrix. A term or a phrase might not match exactly but could still refer to the same skill or a relevant one."
-                # TODO: Comparable skills should still be matched somehow.
-            },
-            {"role": "user", "content": prompt},
-        ],
-        max_tokens=500,
-        n=1,
-        stop=None,
-        temperature=0.1,
-    )
-    print("API prompted")
-    return response.choices[0].message['content'].strip()
+def job_compare(prompt, job_advert_list):
+    for attempt in range(3):
+        try:
+            response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "Given the skills from the job advert: " + str(job_advert_list) +
+                                   "\nand the provided skills matrix, construct a table with columns: 'Required Skill,' 'In Skills Matrix,' and 'Level of Proficiency.' " +
+                                   "\nFor each skill from the job advert, determine if there's a direct match or a related term in the skills matrix. If there is, note 'Yes' in the 'In Skills Matrix' column, and specify the 'Level of Proficiency' from the skills matrix. If not, write 'No' in the 'In Skills Matrix' column, and leave 'Level of Proficiency' blank. " +
+                                   "\nKeep in mind that a skill might be expressed differently in the job advert and the skills matrix. A term or a phrase might not match exactly but could still refer to the same skill or a relevant one."
+                    },
+                    {"role": "user", "content": prompt},
+                ],
+                max_tokens=500,
+                n=1,
+                stop=None,
+                temperature=0.1,
+            )
+            print("API prompted")
+            return response.choices[0].message['content'].strip()
 
+        except openai.error.OpenAIError as e:
+            print(f"An error occurred: {e}. Attempt {attempt + 1} of 3. Trying again after delay...")
+            time.sleep(10)
+
+    print("API interaction failed. Please try again later.")
+    exit(1)
 
 def api_interaction(skills_matrix_file, job_advert_file):
     print("Compare mode started.")
@@ -86,8 +103,7 @@ def api_interaction(skills_matrix_file, job_advert_file):
     print(f'API Response: job advert list; {job_advert_list}\n')
     prompt2 = f"Here is a skills matrix: {skills_matrix}\nAnd a list of skills from a job advert: {job_advert_list}\n " \
               f"please compare the two in a table format."
-    ai_response = chat_with_gpt3(prompt2, job_advert_list)
-
+    ai_response = job_compare(prompt2, job_advert_list)
 
     with open('api_responses.txt', 'a') as f:
         f.write(f'API Response: comparison;{ai_response}\n\n')
