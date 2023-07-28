@@ -14,6 +14,7 @@ openai.api_key = api_key
 
 
 # Function to extract skills from job advert.
+# returns
 def job_extract(prompt):
     for attempt in range(3):
         try:
@@ -49,6 +50,8 @@ def job_extract(prompt):
     exit(1)
 
 
+# Function to compare extracted job skills with provided skill matrix.
+# Returns a table showing the comparison
 def job_compare(prompt, job_advert_list):
     for attempt in range(3):
         try:
@@ -58,9 +61,17 @@ def job_compare(prompt, job_advert_list):
                     {
                         "role": "system",
                         "content": "Given the skills from the job advert: " + str(job_advert_list) +
-                                   "\nand the provided skills matrix, construct a table with columns: 'Required Skill,' 'In Skills Matrix,' and 'Level of Proficiency.' " +
-                                   "\nFor each skill from the job advert, determine if there's a direct match or a related term in the skills matrix. If there is, note 'Yes' in the 'In Skills Matrix' column, and specify the 'Level of Proficiency' from the skills matrix. If not, write 'No' in the 'In Skills Matrix' column, and leave 'Level of Proficiency' blank. " +
-                                   "\nKeep in mind that a skill might be expressed differently in the job advert and the skills matrix. A term or a phrase might not match exactly but could still refer to the same skill or a relevant one."
+                                   "\nand the provided skills matrix, construct a table with columns: "
+                                   "'Required Skill,' 'In Skills Matrix,' and 'Level of Proficiency.' " +
+                                   "\nFor each skill from the job advert, "
+                                   "determine if there's a direct match or a related term in the skills matrix. "
+                                   "If there is, note 'Yes' in the 'In Skills Matrix' column, "
+                                   "and specify the 'Level of Proficiency' from the skills matrix. "
+                                   "If not, write 'No' in the 'In Skills Matrix' column, "
+                                   "and leave 'Level of Proficiency' blank. " +
+                                   "\nKeep in mind that a skill might be expressed differently in the job advert "
+                                   "and the skills matrix. A term or a phrase might not match exactly "
+                                   "but could still refer to the same skill or a relevant one."
                     },
                     {"role": "user", "content": prompt},
                 ],
@@ -78,6 +89,7 @@ def job_compare(prompt, job_advert_list):
 
     print("API interaction failed. Please try again later.")
     exit(1)
+
 
 def api_interaction(skills_matrix_file, job_advert_file):
     print("Compare mode started.")
