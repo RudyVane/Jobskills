@@ -1,5 +1,3 @@
-from .ping import bp as ping_bp
-from .offer import bp as offer_bp
-from .modal import bp as modal_bp
+from . import ping, offer, modal
 
-blueprints = [ping_bp, offer_bp, modal_bp]
+blueprints = [x.bp for x in [ping, offer, modal]]
