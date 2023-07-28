@@ -10,6 +10,7 @@ python = "^3.11"
 Flask = "^2.3.2"
 Flask-Discord-Interactions = "^2.1.2"
 python-dotenv = "^1.0.0"
+openai = "^0.27.8"
 
 [tool.poetry.scripts]
 app = "jobskills:main"
