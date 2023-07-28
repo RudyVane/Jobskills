@@ -2,6 +2,7 @@ ARG VARIANT="3.11-bullseye"
 FROM mcr.microsoft.com/vscode/devcontainers/python:1-${VARIANT}
 
 ENV PYTHONUNBUFFERED 1
+ENV POETRY_VIRTUALENVS_IN_PROJECT true
 
 # Poetry
 ARG POETRY_VERSION="none"
