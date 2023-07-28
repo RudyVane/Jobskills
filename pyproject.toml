@@ -11,6 +11,9 @@ Flask = "^2.3.2"
 Flask-Discord-Interactions = "^2.1.2"
 python-dotenv = "^1.0.0"
 
+[tool.poetry.scripts]
+app = "jobskills:main"
+
 
 [build-system]
 requires = ["poetry-core"]
