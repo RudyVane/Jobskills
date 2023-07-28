@@ -4,3 +4,5 @@
 # your spiders.
 
 from .indeed import IndeedSpider
+from .readability import ReadabilitySpider
+from .generic import GenericSpider
