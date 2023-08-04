@@ -22,18 +22,6 @@ services:
 
     # Use "forwardPorts" in **devcontainer.json** to forward an app port locally.
     # (Adding the "ports" property to this file will not forward from a Codespace.)
-  
-  ngrok:
-    image: ngrok/ngrok:3-alpine
-    command:
-      - 'start'
-      - 'discord_interactions'
-      - '--config'
-      - '/run/secrets/ngrok_conf'
-    secrets:
-      - ngrok_conf
-    ports:
-      - "4040"
   splash:
     image: scrapinghub/splash
     ports:
@@ -53,7 +41,3 @@ services:
 
 volumes:
   postgres-data:
-
-secrets:
-  ngrok_conf:
-    file: ../local/ngrok.yml

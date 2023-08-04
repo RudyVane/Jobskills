@@ -1,6 +1,11 @@
 version: '3.8'
 
 services:
+  app:
+    build:
+      context: .
+    ports:
+      - "8080"
   ngrok:
     image: ngrok/ngrok:3-alpine
     command:
