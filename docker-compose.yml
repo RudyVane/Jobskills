@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  ngrok:
+    image: ngrok/ngrok:3-alpine
+    command:
+      - 'start'
+      - 'discord_interactions'
+      - '--config'
+      - '/run/secrets/ngrok_app_tunnel'
+    secrets:
+      - ngrok_app_tunnel
+    ports:
+      - "4040"
+
+secrets:
+  ngrok_app_tunnel:
+    external: true
