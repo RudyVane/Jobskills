@@ -1,0 +1,30 @@
+on:
+  workflow_dispatch: {}
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+  steps:
+    - uses: actions/checkout@v3
+    # set up nix env
+    - uses: DeterminateSystems/flake-checker-action@main
+    - uses: DeterminateSystems/nix-installer-action@main
+    - uses: DeterminateSystems/magic-nix-cache-action@main
+    # sanity check
+    - run: "nix flake check"
+    - run: "nix build .#myapp -L --no-out-link"
+    - name: Login to ghcr.io
+      run: |
+        nix run .#skopeo -- login \
+        -u '${{ github.actor }}' \
+        -p '${{ secrets.GITHUB_TOKEN }}' \
+        '${{ env.REGISTRY }}'
+    - name: Deploy to ghcr.io
+      run: "nix run .#deploy-image -- docker://${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
