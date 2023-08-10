@@ -27,4 +27,4 @@ jobs:
           -p '${{ secrets.GITHUB_TOKEN }}' \
           '${{ env.REGISTRY }}'
       - name: Deploy to ghcr.io
-        run: "nix run .#deploy-image -- docker://${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
+        run: "nix run .#deploy-image -- docker://${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"

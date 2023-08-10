@@ -59,13 +59,15 @@
             created = "@${toString self.sourceInfo.lastModified}";
           };
 
-        deploy-image = pkgs.writeShellApplication {
+        deploy-image = let 
+          stream = self.packages.${system}.docker-image;
+        in pkgs.writeShellApplication {
           name = "deploy-docker-image";
           runtimeInputs = [ pkgs.skopeo ];
           text = ''
-            ${self.packages.${system}.docker-image} | \
+            ${stream} | \
               skopeo copy --dest-precompute-digests \
-              docker-archive:/dev/stdin "$@"
+              docker-archive:/dev/stdin "$(echo "$1" | tr '[:upper:]' '[:lower:]'):${stream.imageTag}"
           '';
         };
 
