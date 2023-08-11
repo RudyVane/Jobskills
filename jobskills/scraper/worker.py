@@ -22,6 +22,9 @@ from scrapy.utils.defer import deferred_to_future
 settings = Settings({k: getattr(s, k) for k in dir(s) if not k.startswith("_")})
 configure_logging(settings)
 
+blacklists = {}
+domains = {}
+
 async def startup(ctx):
     f = open("blacklists.json")
     ctx["blacklists"] = json.loads(f.read())
