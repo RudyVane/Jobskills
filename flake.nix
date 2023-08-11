@@ -13,53 +13,15 @@
     nixpkgs,
     flake-utils,
     poetry2nix,
-  }:
-    flake-utils.lib.eachDefaultSystem (system: let
-      p2nix = poetry2nix.legacyPackages.${system};
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      packages = {
-        myapp = p2nix.mkPoetryApplication {
-          projectDir = self;
-          python = pkgs.python311;
-        };
-        docker-image = let
-          env = self.packages.${system}.myapp.dependencyEnv;
-        in
-          pkgs.dockerTools.streamLayeredImage {
-            name = "jobskills";
-            config.Cmd = [
-              "${env}/bin/gunicorn"
-              "-k"
-              "uvicorn.workers.UvicornWorker"
-              "-b"
-              "[::]:8080"
-              "jobskills.flask:asgi_app"
-            ];
-
-            created = "@${toString self.sourceInfo.lastModified}";
-          };
-
-        deploy-image = let 
-          stream = self.packages.${system}.docker-image;
-        in pkgs.writeShellApplication {
-          name = "deploy-docker-image";
-          runtimeInputs = [ pkgs.skopeo ];
-          text = ''
-            repo=$(echo "$1" | tr '[:upper:]' '[:lower:]')
-            tag="${stream.imageTag}"
-            ${stream} | \
-              skopeo copy --dest-precompute-digests \
-              docker-archive:/dev/stdin "$repo:$tag"
-            skopeo copy "$repo:$tag" "$repo:latest"
-          '';
-        };
-
-        inherit (pkgs) skopeo;
-      };
-
-      devShells.default = pkgs.mkShell {
-        packages = [pkgs.poetry pkgs.skopeo pkgs.python311 pkgs.alejandra];
-      };
-    });
+  }: flake-utils.lib.simpleFlake {
+    inherit self nixpkgs;
+    name = "outputs";
+    overlay = ./overlay.nix;
+    preOverlays = [
+      (_: _: { inherit self; })
+      (final: prev: let 
+        result = poetry2nix.overlay final prev;
+      in builtins.removeAttrs result [ "poetry" ])
+    ];
+  };
 }

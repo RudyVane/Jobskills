@@ -5,6 +5,10 @@ services:
     # build:
     #   context: .
     image: ghcr.io/rudyvane/jobskills:latest
+    command:
+      - "discord-endpoint"
+      - "-b"
+      - "[::]:8080"
     ports:
       - "8080"
   ngrok:
