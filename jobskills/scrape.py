@@ -23,7 +23,7 @@ f.close()
 
 def getSpider(url):
     tld = tldextract.extract(url)
-    if tld.domain in blacklists["readability"] and tld.domain not in dir(domains):
+    if tld.domain in blacklists["readability"] and  tld.domain not in dir(domains):
         return spiders.GenericSpider
     return getattr(
         spiders,
