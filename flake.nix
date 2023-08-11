@@ -46,9 +46,12 @@
           name = "deploy-docker-image";
           runtimeInputs = [ pkgs.skopeo ];
           text = ''
+            repo=$(echo "$1" | tr '[:upper:]' '[:lower:]')
+            tag="${stream.imageTag}"
             ${stream} | \
               skopeo copy --dest-precompute-digests \
-              docker-archive:/dev/stdin "$(echo "$1" | tr '[:upper:]' '[:lower:]'):${stream.imageTag}"
+              docker-archive:/dev/stdin "$repo:$tag"
+            skopeo copy "$repo:$tag" "$repo:latest"
           '';
         };
 
