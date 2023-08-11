@@ -18,8 +18,7 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@main
       - uses: DeterminateSystems/magic-nix-cache-action@main
       # sanity check
-      - run: "nix flake check"
-      - run: "nix build .#myapp -L --no-link"
+      - run: "nix flake check -L"
       - name: Login to ghcr.io
         run: |
           nix run .#skopeo -- login \
