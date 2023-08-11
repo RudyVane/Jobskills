@@ -1,4 +1,4 @@
-from flask_discord_interactions import DiscordInteractionsBlueprint, Attachment, Message
+from flask_discord_interactions import DiscordInteractionsBlueprint, Message
 from arq import create_pool
 from arq.connections import RedisSettings
 
