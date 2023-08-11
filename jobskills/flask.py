@@ -2,6 +2,7 @@
 import os
 
 from dotenv import load_dotenv
+from asgiref.wsgi import WsgiToAsgi
 from flask import Flask
 from .discord.flask import blueprint as discord_blueprint
 
@@ -23,3 +24,5 @@ if "API_KEY" in os.environ:
         job_advert_file = "./api_test/job_advert.txt"
         result = api_interaction(skills_matrix_file, job_advert_file)
         return result
+
+asgi_app = WsgiToAsgi(app)

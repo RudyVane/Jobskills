@@ -34,7 +34,7 @@
               "uvicorn.workers.UvicornWorker"
               "-b"
               "[::]:8080"
-              "jobskills.flask:app"
+              "jobskills.flask:asgi_app"
             ];
 
             created = "@${toString self.sourceInfo.lastModified}";

@@ -18,6 +18,7 @@ readability-lxml = "^0.8.1"
 crochet = "^2.1.1"
 gunicorn = "^21.2.0"
 uvicorn = "^0.23.2"
+asgiref = "^3.7.2"
 
 [tool.poetry.scripts]
 app = "jobskills:main"
