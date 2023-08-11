@@ -22,25 +22,6 @@
         myapp = p2nix.mkPoetryApplication {
           projectDir = self;
           python = pkgs.python311;
-          overrides = p2nix.overrides.withDefaults (self: super: {
-            gunicorn = super.gunicorn.overridePythonAttrs (old: {
-              nativeBuildInputs = (old.nativeBuildInputs or []) ++ [self.packaging];
-            });
-
-            service-identity = super.service-identity.overridePythonAttrs (old: {
-              nativeBuildInputs =
-                (old.nativeBuildInputs or [])
-                ++ [
-                  self.hatchling
-                  self.hatch-vcs
-                  self.hatch-fancy-pypi-readme
-                ];
-            });
-
-            flask-discord-interactions = super.flask-discord-interactions.overridePythonAttrs (old: {
-              nativeBuildInputs = (old.nativeBuildInputs or []) ++ [self.setuptools];
-            });
-          });
         };
         docker-image = let
           env = self.packages.${system}.myapp.dependencyEnv;
