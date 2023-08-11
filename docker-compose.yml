@@ -11,6 +11,14 @@ services:
       - "[::]:8080"
     ports:
       - "8080"
+    environment:
+      - DISCORD_CLIENT_ID_FILE=/run/secrets/discord_client_id
+      - DISCORD_CLIENT_SECRET_FILE=/run/secrets/discord_client_secret
+      - DISCORD_PUBLIC_KEY_FILE=/run/secrets/discord_public_key
+    secrets:
+      - discord_public_key
+      - discord_client_id
+      - discord_client_secret
   ngrok:
     image: ngrok/ngrok:3-alpine
     command:
@@ -25,4 +33,10 @@ services:
 
 secrets:
   ngrok_app_tunnel:
+    external: true
+  discord_public_key:
+    external: true
+  discord_client_secret:
+    external: true
+  discord_client_id:
     external: true
