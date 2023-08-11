@@ -22,31 +22,28 @@ from scrapy.utils.defer import deferred_to_future
 settings = Settings({k: getattr(s, k) for k in dir(s) if not k.startswith("_")})
 configure_logging(settings)
 
-blacklists = {}
-domains = {}
-
 async def startup(ctx):
     f = open("blacklists.json")
-    blacklists = json.loads(f.read())
+    ctx["blacklists"] = json.loads(f.read())
     f.close()
 
     f = open("domains.json")
-    domains = json.loads(f.read())
+    ctx["domains"] = json.loads(f.read())
     f.close()
 
 async def shutdown(ctx):
     pass
 
-async def getSpider(url):
+async def getSpider(ctx, url):
     tld = tldextract.extract(url)
-    if tld.domain in blacklists["readability"] and not tld.domain in dir(domains):
+    if tld.domain in ctx["blacklists"]["readability"] and not tld.domain in dir(ctx["domains"]):
         return spiders.GenericSpider
-    return getattr(spiders, (domains.get(tld.domain) or domains.get("__default__")).get("spider", "GenericSpider"))
+    return getattr(spiders, (ctx["domains"].get(tld.domain) or ctx["domains"].get("__default__")).get("spider", "GenericSpider"))
 
 
-async def transformUrl(url):
+async def transformUrl(ctx, url):
     tld = tldextract.extract(url)
-    return (domains.get(tld.domain) or domains.get("__default__")).get("transform", "{}").format(url)
+    return (ctx["domains"].get(tld.domain) or ctx["domains"].get("__default__")).get("transform", "{}").format(url)
 
 def _nop(_):
     pass
@@ -58,19 +55,19 @@ async def _scrape(ctx, url, cb = _nop):
 
     class ResPipeline(object):
         def process_item(self, item, spider):
-            res = dict(item)
+            res.update(dict(item))
             return item
 
     settings.set(
         "ITEM_PIPELINES", {**settings.get("ITEM_PIPELINES"), ResPipeline: 1000}
     )
     runner = CrawlerRunner(settings)
-    s = await getSpider(url)
+    s = await getSpider(ctx, url)
     print(s)
     d = runner.crawl(
         s,
         start_urls=[
-            await transformUrl(url)
+            await transformUrl(ctx, url)
             ],
     )
     d.addCallback(lambda _: cb(res))
