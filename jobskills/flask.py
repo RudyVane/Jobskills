@@ -1,12 +1,17 @@
 import os
 
-from dotenv import load_dotenv
+from pathlib import Path
 from asgiref.wsgi import WsgiToAsgi
 from flask import Flask
 from .discord.flask import blueprint as discord_blueprint
 
 app = Flask(__name__)
 app.config.from_prefixed_env()
+for key in app.config.keys():
+    # FIXME: created common utility to do this
+    new_key = key.removesuffix("_FILE")
+    if new_key != key:
+        app.config[new_key] = Path(app.config[key]).read_text()
 
 app.register_blueprint(discord_blueprint)
 
@@ -17,7 +22,7 @@ def hello():
 
 
 if "API_KEY" in os.environ:
-    from api_test.gpt import api_interaction
+    from .gpt import api_interaction
 
     @app.route("/test")
     def gpttest():
