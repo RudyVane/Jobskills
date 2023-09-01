@@ -1,5 +1,6 @@
-from flask_discord_interactions import DiscordInteractionsBlueprint, Message
+# ruff: noqa: E501
 
+from flask_discord_interactions import DiscordInteractionsBlueprint, Message
 
 bp = DiscordInteractionsBlueprint()
 

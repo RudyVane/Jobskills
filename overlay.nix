@@ -106,7 +106,7 @@ in {
 
     checks = {
       # add derivations here to run during check
-      inherit (final) jobskills;
+      inherit (final) jobskills pre-commit-check;
       formatting = final.treefmtEval.config.build.check final.self;
     };
   };

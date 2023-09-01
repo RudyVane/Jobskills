@@ -1,3 +1,5 @@
+# ruff: noqa: E501
+
 # Scrapy settings for scraper project
 #
 # For simplicity, this file contains only settings considered important or
@@ -8,6 +10,7 @@
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 from os import environ
+
 from dotenv import load_dotenv
 
 load_dotenv()

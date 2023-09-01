@@ -1,7 +1,10 @@
-import openai
-from dotenv import load_dotenv
+# ruff: noqa: E501
+
 import os
 import time
+
+import openai
+from dotenv import load_dotenv
 
 # ToDo: Documentation.
 

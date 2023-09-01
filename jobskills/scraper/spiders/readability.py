@@ -1,6 +1,6 @@
 import scrapy
-from readability import Document
 from bs4 import BeautifulSoup
+from readability import Document
 
 
 class ReadabilitySpider(scrapy.Spider):

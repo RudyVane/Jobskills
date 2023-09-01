@@ -1,5 +1,4 @@
-from flask_discord_interactions import DiscordInteractionsBlueprint, Attachment, Message
-
+from flask_discord_interactions import Attachment, DiscordInteractionsBlueprint, Message
 
 bp = DiscordInteractionsBlueprint()
 

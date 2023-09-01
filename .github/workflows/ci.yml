@@ -1,11 +1,9 @@
 name: CI
-
 on:
   pull_request:
   push:
     branches:
       - main
-
 jobs:
   nix-matrix:
     runs-on: ubuntu-latest
@@ -20,7 +18,6 @@ jobs:
         run: |
           set -Eeu
           echo "matrix=$(nix eval --json '.#githubActions.matrix')" >> "$GITHUB_OUTPUT"
-
   nix-checks:
     needs: nix-matrix
     runs-on: ${{ matrix.os }}

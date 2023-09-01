@@ -23,7 +23,6 @@ asgiref = "^3.7.2"
 [tool.poetry.scripts]
 app = "jobskills:main"
 
-
 [tool.poetry.group.dev.dependencies]
 ipython = "^8.14.0"
 
