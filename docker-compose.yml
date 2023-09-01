@@ -1,5 +1,4 @@
 version: '3.8'
-
 services:
   app:
     # build:
@@ -35,7 +34,6 @@ services:
       - ngrok_tunnel_config
     ports:
       - "4040"
-
 secrets:
   ngrok_authtoken_config:
     external: true
@@ -45,7 +43,6 @@ secrets:
     external: true
   discord_client_id:
     external: true
-
 configs:
   ngrok_tunnel_config:
     external: true

@@ -10,4 +10,5 @@ _: {
   };
   programs.taplo.enable = true;
   programs.yamlfmt.enable = true;
+  settings.formatter.yamlfmt.includes = ["*.yaml" "*.yml"];
 }
