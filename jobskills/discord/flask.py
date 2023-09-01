@@ -1,7 +1,7 @@
 import os
 
-from quart.blueprints import Blueprint, BlueprintSetupState
 from flask_discord_interactions import DiscordInteractions
+from quart.blueprints import Blueprint, BlueprintSetupState
 
 from .commands import blueprints
 

@@ -1,7 +1,9 @@
 from flask_discord_interactions import DiscordInteractionsBlueprint, Message
+
 from jobskills.jobqueue import get_queue
 
 bp = DiscordInteractionsBlueprint()
+
 
 @bp.command()
 async def scrape(ctx, url: str):

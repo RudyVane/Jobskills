@@ -1,16 +1,19 @@
 import asyncio
+import json
+
 # from twisted.internet import asyncioreactor, reactor
 # from twisted.internet.defer import inlineCallbacks, returnValue
 import sys
 from os import environ
-import tldextract
-import json
-from scrapy.crawler import CrawlerRunner
-from scrapy.utils.log import configure_logging
-import spiders
+
 import settings as s
-from scrapy.settings import Settings
+import spiders
+import tldextract
 from crochet import setup
+from scrapy.crawler import CrawlerRunner
+from scrapy.settings import Settings
+from scrapy.utils.log import configure_logging
+
 setup()
 from scrapy.utils.defer import deferred_to_future
 
@@ -22,6 +25,7 @@ from scrapy.utils.defer import deferred_to_future
 settings = Settings({k: getattr(s, k) for k in dir(s) if not k.startswith("_")})
 configure_logging(settings)
 
+
 async def startup(ctx):
     f = open("blacklists.json")
     ctx["blacklists"] = json.loads(f.read())
@@ -31,26 +35,39 @@ async def startup(ctx):
     ctx["domains"] = json.loads(f.read())
     f.close()
 
+
 async def shutdown(ctx):
     pass
+
 
 async def getSpider(ctx, url):
     tld = tldextract.extract(url)
     print(tld)
     # if tld.domain in ctx["blacklists"]["readability"] and not tld.domain in dir(ctx["domains"]):
     #     return spiders.GenericSpider
-    return getattr(spiders, (ctx["domains"].get(tld.domain) or ctx["domains"].get("__default__")).get("spider", "GenericSpider"))
+    return getattr(
+        spiders,
+        (ctx["domains"].get(tld.domain) or ctx["domains"].get("__default__")).get(
+            "spider", "GenericSpider"
+        ),
+    )
 
 
 async def transformUrl(ctx, url):
     tld = tldextract.extract(url)
-    return (ctx["domains"].get(tld.domain) or ctx["domains"].get("__default__")).get("transform", "{}").format(url)
+    return (
+        (ctx["domains"].get(tld.domain) or ctx["domains"].get("__default__"))
+        .get("transform", "{}")
+        .format(url)
+    )
+
 
 def _nop(_):
     pass
 
+
 # @wait_for(timeout=10)
-async def _scrape(ctx, url, cb = _nop):
+async def _scrape(ctx, url, cb=_nop):
     res = {}
     print(settings)
 
@@ -67,16 +84,16 @@ async def _scrape(ctx, url, cb = _nop):
     print(s)
     d = runner.crawl(
         s,
-        start_urls=[
-            await transformUrl(ctx, url)
-            ],
+        start_urls=[await transformUrl(ctx, url)],
     )
     d.addCallback(lambda _: cb(res))
     await deferred_to_future(d)
     return res
 
-async def scrape(ctx, url, cb = _nop):
-    return await _scrape(ctx, url, cb = cb)
+
+async def scrape(ctx, url, cb=_nop):
+    return await _scrape(ctx, url, cb=cb)
+
 
 class WorkerSettings:
     functions = [scrape]

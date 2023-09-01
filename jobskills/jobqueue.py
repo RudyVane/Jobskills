@@ -1,6 +1,8 @@
+from contextlib import asynccontextmanager
+
 from arq import create_pool
 from arq.connections import RedisSettings
-from contextlib import asynccontextmanager
+
 
 @asynccontextmanager
 async def get_queue():

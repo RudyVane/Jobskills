@@ -1,6 +1,7 @@
+import quart.flask_patch
 from dotenv import load_dotenv
 from quart import Quart
-import quart.flask_patch
+
 from .discord.flask import blueprint as discord_blueprint
 
 # from .scrape import scrape
