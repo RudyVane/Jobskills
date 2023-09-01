@@ -27,12 +27,22 @@ def getSpider(url):
     tld = tldextract.extract(url)
     if tld.domain in blacklists["readability"] and not tld.domain in dir(domains):
         return spiders.GenericSpider
-    return getattr(spiders, (domains.get(tld.domain) or domains.get("__default__")).get("spider", "GenericSpider"))
+    return getattr(
+        spiders,
+        (domains.get(tld.domain) or domains.get("__default__")).get(
+            "spider", "GenericSpider"
+        ),
+    )
 
 
 def transformUrl(url):
     tld = tldextract.extract(url)
-    return (domains.get(tld.domain) or domains.get("__default__")).get("transform", "{}").format(url)
+    return (
+        (domains.get(tld.domain) or domains.get("__default__"))
+        .get("transform", "{}")
+        .format(url)
+    )
+
 
 def scrape(url, cb):
     res = []

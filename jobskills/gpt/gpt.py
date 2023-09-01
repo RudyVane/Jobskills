@@ -115,18 +115,18 @@ def api_interaction(skills_matrix_file, job_advert_file):
     print("sending job advert for extraction")
     job_advert_list = job_extract(prompt1)
     print("job advert extracted: ")
-        # testfile writes
+    # testfile writes
     with open("api_responses.txt", "a") as f:
         f.write(f"API Response: job advert list; {job_advert_list}\n\n")
         # testfile writes
     print(f"API Response: job advert list; {job_advert_list}\n")
-    
+
     prompt2 = (
         f"Here is a skills matrix: {skills_matrix}\nAnd a list of skills from a job advert: {job_advert_list}\n "
         f"please compare the two in a table format."
     )
     ai_response = job_compare(prompt2, job_advert_list)
-        # testfile writes
+    # testfile writes
     with open("api_responses.txt", "a") as f:
         f.write(f"API Response: comparison;{ai_response}\n\n")
         # testfile writes
@@ -134,8 +134,9 @@ def api_interaction(skills_matrix_file, job_advert_file):
     print("Compare mode done.")
     return ai_response
 
+
 # replace skills_matrix.txt with variable from bot
-# replace job_advert.txt with actual job_advert scrape result 
+# replace job_advert.txt with actual job_advert scrape result
 if __name__ == "__main__":
     skills_matrix_file = "skills_matrix.txt"
     job_advert_file = "job_advert.txt"

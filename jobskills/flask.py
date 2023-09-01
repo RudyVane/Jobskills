@@ -1,4 +1,3 @@
-
 import os
 
 from dotenv import load_dotenv
@@ -11,9 +10,11 @@ app.config.from_prefixed_env()
 
 app.register_blueprint(discord_blueprint)
 
+
 @app.route("/")
 def hello():
     return "Hello World"
+
 
 if "API_KEY" in os.environ:
     from api_test.gpt import api_interaction
@@ -24,5 +25,6 @@ if "API_KEY" in os.environ:
         job_advert_file = "./api_test/job_advert.txt"
         result = api_interaction(skills_matrix_file, job_advert_file)
         return result
+
 
 asgi_app = WsgiToAsgi(app)
