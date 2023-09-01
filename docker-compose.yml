@@ -25,18 +25,26 @@ services:
       - 'start'
       - 'discord_interactions'
       - '--config'
-      - '/run/secrets/ngrok_app_tunnel'
+      - '/run/secrets/ngrok_authtoken_config'
+      - '--config'
+      - '/ngrok_tunnel_config'
     secrets:
-      - ngrok_app_tunnel
+      - ngrok_authtoken_config
+    configs:
+      - ngrok_tunnel_config
     ports:
       - "4040"
 
 secrets:
-  ngrok_app_tunnel:
+   ngrok_authtoken_config:
     external: true
   discord_public_key:
     external: true
   discord_client_secret:
     external: true
   discord_client_id:
+    external: true
+
+configs:
+  ngrok_tunnel_config:
     external: true
