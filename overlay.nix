@@ -9,6 +9,11 @@ in {
     poetry2nix.mkPoetryApplication {
       projectDir = self;
       python = python311;
+      overrides = poetry2nix.overrides.withDefaults (_self: super: {
+        flask = super.flask.overridePythonAttrs (old: {
+          nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.flit-core];
+        });
+      });
     }) {};
 
   docker-entrypoint = callPackage ({writeShellScriptBin}:
