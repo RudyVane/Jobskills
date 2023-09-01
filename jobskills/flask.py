@@ -7,11 +7,15 @@ from .discord.flask import blueprint as discord_blueprint
 
 app = Flask(__name__)
 app.config.from_prefixed_env()
-for key in app.config.keys():
-    # FIXME: created common utility to do this
-    new_key = key.removesuffix("_FILE")
-    if new_key != key:
-        app.config[new_key] = Path(app.config[key]).read_text()
+
+# FIXME: extract to common method
+app.config.update(
+    {
+        key.removesuffix("_FILE"): Path(app.config[key]).read_text()
+        for (key, value) in app.config.items()
+        if key.endswith("_FILE")
+    }
+)
 
 app.register_blueprint(discord_blueprint)
 
