@@ -1,0 +1,81 @@
+Stap 1: Activering van het "/upload" Commando 
+
+De Discord-bot luistert naar berichten in het kanaal en detecteert wanneer een gebruiker het "/upload" commando invoert. 
+
+ 
+
+Stap 2: Vragen om Keuze en Controle van Online Bestanden 
+
+De bot reageert onmiddellijk op het "/upload" commando met een bericht dat de gebruiker vraagt om te kiezen tussen het uploaden van de vacaturetekst, het CV of beide. Het bericht kan bijvoorbeeld zeggen: "Welk bestand wil je uploaden: de vacaturetekst, het CV of beide? Typ '/vacature', '/cv' of '/beide' om je keuze aan te geven." 
+
+De bot kan vervolgens de gebruiker vragen of een van beide bestanden al online beschikbaar is. De bot kan vragen: "Is een van de bestanden al online beschikbaar? Zo ja, geef de link(s) op of typ 'geen' als geen van beide online staat." 
+
+ 
+
+Stap 3: Controle van Online Bestanden en Instructies voor Bestandsupload 
+
+Nadat de gebruiker heeft aangegeven of een van beide bestanden online beschikbaar is, kan de bot de gegeven links controleren en de bestanden direct ophalen als ze online beschikbaar zijn. 
+
+Als de bestanden niet online beschikbaar zijn, kan de bot doorgaan met het geven van instructies voor het uploaden van het gekozen bestandstype. Bijvoorbeeld, als de gebruiker "/vacature" heeft gekozen, kan de bot zeggen: "Om de vacaturetekst te uploaden, gebruik de bijlage-functie en stuur het bestand dat je wilt uploaden." 
+
+ 
+
+Stap 4: Instructies voor Bestandsupload 
+
+Nadat de gebruiker hun keuze heeft gemaakt, reageert de bot met instructies voor het uploaden van het gekozen bestandstype. Bijvoorbeeld, als de gebruiker "/vacature" heeft gekozen, kan de bot zeggen: "Om de vacaturetekst te uploaden, gebruik de bijlage-functie en stuur het bestand dat je wilt uploaden." 
+
+ 
+
+Stap 5: Gebruiker Uploadt het Eerste Bestand 
+
+De gebruiker volgt de instructies en uploadt het gekozen bestand (bijvoorbeeld de vacaturetekst) naar het Discord-kanaal door het als bijlage te sturen. 
+
+ 
+
+Stap 6: Bevestiging en Vragen om het Andere Bestand 
+
+Nadat het eerste bestand is geüpload, bevestigt de bot de ontvangst en vraagt de gebruiker om het andere bestand te uploaden. Bijvoorbeeld: "Bedankt voor het uploaden van de vacaturetekst! Wil je nu het CV uploaden? Zo ja, volg dezelfde stappen als hierboven, maar gebruik '/cv' om je CV te uploaden." 
+
+ 
+
+Stap 7: Gebruiker Uploadt het Tweede Bestand 
+
+Als de gebruiker ervoor kiest om het andere bestand (bijvoorbeeld het CV) te uploaden, volgt hij/zij opnieuw de instructies van de bot en stuurt het bestand als bijlage. 
+
+ 
+
+Stap 8: Voltooide Uploads en Afsluiting 
+
+Nadat beide bestanden zijn geüpload, bevestigt de bot de ontvangst van beide en kan eventueel verdere instructies geven, zoals het bedanken van de gebruiker. 
+
+ 
+
+Stap 9: Vergelijken en Identificeren van Overeenkomende Vaardigheden 
+
+Nadat beide teksten (de vacaturetekst en het CV) zijn geüpload, begint de bot met het vergelijken van de inhoud van beide teksten om overeenkomende vaardigheden te identificeren. 
+
+De bot kan gebruikmaken van tekstvergelijkingsalgoritmen of -methoden om overeenkomsten te vinden tussen de trefwoorden en zinsdelen in beide teksten. 
+
+ 
+
+Stap 10: Teruggeven van Overeenkomende Vaardigheden aan de Gebruiker 
+
+Nadat de bot de overeenkomende vaardigheden heeft geïdentificeerd, stuurt hij een bericht naar het Discord-kanaal met een lijst van deze vaardigheden naar de gebruiker. Bijvoorbeeld: "Hier zijn de overeenkomende vaardigheden die we hebben geïdentificeerd: [lijst van vaardigheden]." 
+
+De bot kan ook aanvullende informatie geven, zoals hoe vaak een bepaalde vaardigheid in beide teksten is genoemd of andere relevante details. 
+
+ 
+
+Stap 11: Feedback Mechanisme 
+
+Voeg een feedbackmechanisme toe waarmee gebruikers de nauwkeurigheid van de geïdentificeerde vaardigheden kunnen bevestigen of aanpassen. 
+
+Gebruik deze feedback om de nauwkeurigheid van de bot te verbeteren. 
+
+ 
+
+Stap 12: Afsluiting 
+
+Sluit het proces af door de gebruiker te bedanken voor hun deelname en de resultaten van de vaardigheidsvergelijking te presenteren. 
+
+ 
