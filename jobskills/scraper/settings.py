@@ -1,3 +1,5 @@
+# ruff: noqa: E501
+
 # Scrapy settings for scraper project
 #
 # For simplicity, this file contains only settings considered important or

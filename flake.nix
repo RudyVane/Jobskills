@@ -16,6 +16,11 @@
     url = "github:numtide/treefmt-nix";
     inputs.nixpkgs.follows = "nixpkgs";
   };
+  inputs.pre-commit-hooks = {
+    url = "github:cachix/pre-commit-hooks.nix";
+    inputs.nixpkgs.follows = "nixpkgs";
+    inputs.flake-utils.follows = "flake-utils";
+  };
   inputs.nix-github-actions = {
     url = "github:nix-community/nix-github-actions";
     inputs.nixpkgs.follows = "nixpkgs";
@@ -29,6 +34,7 @@
     poetry2nix,
     treefmt-nix,
     nix-github-actions,
+    pre-commit-hooks,
   }: let
     systems' = import systems;
     eachSystem = flake-utils.lib.eachSystem systems';
@@ -42,6 +48,22 @@
         (_: _: {inherit self;})
         (pkgs: _: {
           treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+          pre-commit-check = pre-commit-hooks.lib.${pkgs.system}.run {
+            src = self;
+            hooks = {
+              # Python
+              #FIXME mypy.enable = true;
+              ruff.enable = true;
+
+              # Nix
+              deadnix.enable = true;
+              statix.enable = true;
+
+              # yaml
+              actionlint.enable = true;
+              #FIXME yamllint.enable = true;
+            };
+          };
         })
         (final: prev: let
           result = poetry2nix.overlay final prev;
