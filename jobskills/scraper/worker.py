@@ -36,8 +36,9 @@ async def shutdown(ctx):
 
 async def getSpider(ctx, url):
     tld = tldextract.extract(url)
-    if tld.domain in ctx["blacklists"]["readability"] and not tld.domain in dir(ctx["domains"]):
-        return spiders.GenericSpider
+    print(tld)
+    # if tld.domain in ctx["blacklists"]["readability"] and not tld.domain in dir(ctx["domains"]):
+    #     return spiders.GenericSpider
     return getattr(spiders, (ctx["domains"].get(tld.domain) or ctx["domains"].get("__default__")).get("spider", "GenericSpider"))
 
 
@@ -79,5 +80,6 @@ async def scrape(ctx, url, cb = _nop):
 
 class WorkerSettings:
     functions = [scrape]
+    queue_name = "arq:scraper"
     on_startup = startup
     on_shutdown = shutdown
