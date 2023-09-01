@@ -1,8 +1,8 @@
 import os
 
 from flask.blueprints import Blueprint, BlueprintSetupState
-
 from flask_discord_interactions import DiscordInteractions
+
 from .commands import blueprints
 
 blueprint = Blueprint("discord_integration", __name__)

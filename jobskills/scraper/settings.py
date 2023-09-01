@@ -8,6 +8,7 @@
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 from os import environ
+
 from dotenv import load_dotenv
 
 load_dotenv()

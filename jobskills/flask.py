@@ -1,8 +1,9 @@
 import os
-
 from pathlib import Path
+
 from asgiref.wsgi import WsgiToAsgi
 from flask import Flask
+
 from .discord.flask import blueprint as discord_blueprint
 
 app = Flask(__name__)

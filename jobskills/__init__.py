@@ -2,6 +2,7 @@ import os
 
 from dotenv import load_dotenv
 from flask import Flask
+
 from .discord.flask import blueprint as discord_blueprint
 
 # from .scrape import scrape

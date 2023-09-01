@@ -1,6 +1,5 @@
 from flask_discord_interactions import DiscordInteractionsBlueprint, Message
 
-
 bp = DiscordInteractionsBlueprint()
 
 

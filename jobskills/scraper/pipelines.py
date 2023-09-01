@@ -4,9 +4,10 @@
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 
 
+from bs4 import BeautifulSoup
+
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
-from bs4 import BeautifulSoup
 
 
 class BS4Pipeline:

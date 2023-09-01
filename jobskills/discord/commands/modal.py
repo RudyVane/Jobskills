@@ -1,11 +1,10 @@
 from flask_discord_interactions import (
+    ActionRow,
     DiscordInteractionsBlueprint,
     Modal,
-    ActionRow,
     TextInput,
     TextStyles,
 )
-
 
 bp = DiscordInteractionsBlueprint()
 
