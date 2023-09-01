@@ -11,7 +11,12 @@ in {
       python = python311;
     }) {};
 
-  docker-entrypoints = callPackage ({
+  docker-entrypoint = callPackage ({writeShellScriptBin}:
+    writeShellScriptBin "docker-entrypoint" ''
+      exec $@
+    '') {};
+
+  docker-commands = callPackage ({
     lib,
     jobskills,
     writeShellApplication,
@@ -24,7 +29,7 @@ in {
         inherit name;
         runtimeInputs = [jobskills.dependencyEnv];
         text = ''
-          ${lib.escapeShellArgs cmd} "$@"
+          exec ${lib.escapeShellArgs cmd} "$@"
         '';
       };
   in
@@ -51,18 +56,16 @@ in {
     lib,
     dockerTools,
     dash,
-    docker-entrypoints,
+    docker-commands,
+    docker-entrypoint,
   }:
     dockerTools.streamLayeredImage {
       name = "jobskills";
       config = {
         Env = [
-          "PATH=${lib.makeBinPath [docker-entrypoints]}"
+          "PATH=${lib.makeBinPath [docker-commands]}"
         ];
-        Entrypoint = [
-          (lib.getExe dash)
-          "-c"
-        ];
+        Entrypoint = [(lib.getExe docker-entrypoint)];
       };
 
       created = "@${toString self.sourceInfo.lastModified}";
@@ -90,7 +93,7 @@ in {
     inherit
       (final)
       jobskills
-      docker-entrypoints
+      docker-commands
       docker-image
       deploy-image
       skopeo
