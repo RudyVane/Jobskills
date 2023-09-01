@@ -25,4 +25,10 @@ def _setup(state: BlueprintSetupState):
         )
 
 
+def dump_commands():
+    return [
+        command.dump() for bp in blueprints for command in bp.discord_commands.values()
+    ]
+
+
 blueprint.record_once(_setup)
