@@ -1,4 +1,4 @@
-final: prev: let
+final: _prev: let
   inherit (final) callPackage;
 in {
   jobskills = callPackage ({
@@ -55,7 +55,6 @@ in {
     self,
     lib,
     dockerTools,
-    dash,
     docker-commands,
     docker-entrypoint,
   }:
@@ -97,11 +96,13 @@ in {
       docker-image
       deploy-image
       skopeo
+      treefmtEval
       ;
 
     checks = {
       # add derivations here to run during check
       inherit (final) jobskills;
+      formatting = final.treefmtEval.config.build.check final.self;
     };
   };
 }
