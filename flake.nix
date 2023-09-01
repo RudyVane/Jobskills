@@ -1,14 +1,23 @@
 {
   description = "Application packaged using poetry2nix";
 
-  inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs.systems.url = "github:nix-systems/x86_64-linux";
+  inputs.flake-utils = {
+    url = "github:numtide/flake-utils";
+    inputs.systems.follows = "systems";
+  };
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
   inputs.poetry2nix = {
     url = "github:K900/poetry2nix/new-bootstrap-fixes";
     inputs.nixpkgs.follows = "nixpkgs";
+    inputs.flake-utils.follows = "flake-utils";
   };
   inputs.treefmt-nix = {
     url = "github:numtide/treefmt-nix";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+  inputs.nix-github-actions = {
+    url = "github:nix-community/nix-github-actions";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
@@ -19,6 +28,7 @@
     systems,
     poetry2nix,
     treefmt-nix,
+    nix-github-actions,
   }: let
     systems' = import systems;
     eachSystem = flake-utils.lib.eachSystem systems';
@@ -41,5 +51,8 @@
     }
     // eachSystem (system: {
       formatter = self.legacyPackages.${system}.treefmtEval.config.build.wrapper;
-    });
+    })
+    // {
+      githubActions = nix-github-actions.lib.mkGithubMatrix {inherit (self) checks;};
+    };
 }
