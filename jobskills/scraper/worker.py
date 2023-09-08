@@ -1,5 +1,6 @@
 import json
 import os
+from operator import attrgetter
 
 import tldextract
 from crochet import setup
@@ -42,16 +43,17 @@ async def shutdown(ctx):
 async def getSpider(ctx, url):
     tld = tldextract.extract(url)
     print(tld)
-    if tld.domain in ctx["blacklists"]["readability"] and tld.domain not in dir(
-        ctx["domains"]
-    ):
-        return spiders.GenericSpider
-    return getattr(
-        spiders,
-        (ctx["domains"].get(tld.domain) or ctx["domains"].get("__default__")).get(
-            "spider", "GenericSpider"
-        ),
+    # if tld.domain in ctx["blacklists"]["readability"] and tld.domain not in dir(
+    #     ctx["domains"]
+    # ):
+    #     return spiders.generic.Spider
+    getter = attrgetter(
+        (ctx["domains"].get(tld.domain) or ctx["domains"].get("__default__") or {}).get(
+            "spider", "generic"
+        )
+        + ".Spider"
     )
+    return getter(spiders)
 
 
 async def transformUrl(ctx, url):

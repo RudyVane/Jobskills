@@ -2,7 +2,7 @@ import scrapy
 from bs4 import BeautifulSoup
 
 
-class IndeedSpider(scrapy.Spider):
+class Spider(scrapy.Spider):
     name = "indeed"
 
     def parse(self, response):

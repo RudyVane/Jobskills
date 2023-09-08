@@ -1,10 +1,10 @@
 {
     "__default__": {
-        "spider": "ReadabilitySpider",
+        "spider": "readability",
         "transform": "{}"
     },
     "indeed": {
-        "spider": "IndeedSpider",
+        "spider": "indeed",
         "transform": "https://webcache.googleusercontent.com/search?q=cache:{}"
     }
 }

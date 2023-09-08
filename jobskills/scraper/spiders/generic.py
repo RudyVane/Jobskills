@@ -2,7 +2,7 @@ import scrapy
 from bs4 import BeautifulSoup
 
 
-class GenericSpider(scrapy.Spider):
+class Spider(scrapy.Spider):
     name = "generic"
 
     def parse(self, response):

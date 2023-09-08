@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from readability import Document
 
 
-class ReadabilitySpider(scrapy.Spider):
+class Spider(scrapy.Spider):
     name = "readability"
 
     def parse(self, response):
