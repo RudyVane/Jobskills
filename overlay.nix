@@ -19,6 +19,9 @@ in {
         quart = super.quart.overridePythonAttrs (old: {
           nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.poetry];
         });
+        twisted = super.twisted.overridePythonAttrs (old: {
+          nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.hatch-fancy-pypi-readme];
+        });
       });
     }) {};
 
