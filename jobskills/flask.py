@@ -1,9 +1,9 @@
 import os
 from pathlib import Path
 
+import quart.flask_patch  # noqa: F401
 from asgiref.wsgi import WsgiToAsgi
 from quart import Quart
-import quart.flask_patch  # noqa: F401
 
 from .discord.flask import blueprint as discord_blueprint
 
