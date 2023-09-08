@@ -13,6 +13,9 @@ in {
         flask = super.flask.overridePythonAttrs (old: {
           nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.flit-core];
         });
+        aiofiles = super.aiofiles.overridePythonAttrs (old: {
+          nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.hatchling];
+        });
       });
     }) {};
 
