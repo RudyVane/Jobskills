@@ -35,6 +35,9 @@ jobs:
   production:
     needs: docker
     runs-on: ubuntu-latest
+    concurrency:
+      group: continuous-deployment
+      cancel-in-progress: true
     permissions:
       contents: write
     steps:
