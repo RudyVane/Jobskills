@@ -66,7 +66,7 @@ in {
         Env = [
           "PATH=${lib.makeBinPath [docker-commands]}"
         ];
-        Entrypoint = [ "/usr/bin/env" ];
+        Entrypoint = ["/usr/bin/env"];
       };
 
       created = "@${toString self.sourceInfo.lastModified}";
