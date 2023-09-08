@@ -48,8 +48,12 @@ async def message_edit(arq_ctx, dc_ctx, msg: str):
     try:
         dc_ctx.edit(Message(content=msg))
     except HTTPError as e:
-        logger.debug(e.request)
-        logger.debug(e.response)
+        logger.debug(
+            "REQUEST\nurl: {}\nbody: {}\nheaders: {}".format(
+                e.request.url, e.request.body, e.request.headers
+            )
+        )
+        logger.debug("RESPONSE\n{}".format(e.response.headers))
     # print(msg)
 
 
