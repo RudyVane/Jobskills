@@ -1,5 +1,6 @@
-import quart.flask_patch
+import quart.flask_patch  # noqa: F401
 from flask_discord_interactions import Message
+from arq import ResultNotFound
 
 from jobskills.jobqueue import get_queue
 
@@ -35,7 +36,9 @@ async def scrape_handler(arq_ctx, dc_ctx, url: str):
         try:
             scrape_res = await scrape_job.result()
             return scrape_res.get("text", "Failed to scrape!")
-        except:
+        except TimeoutError:
+            return "No result yet!"
+        except ResultNotFound:
             return "Failed to scrape!"
 
 

@@ -1,11 +1,4 @@
-import asyncio
 import json
-
-# from twisted.internet import asyncioreactor, reactor
-# from twisted.internet.defer import inlineCallbacks, returnValue
-import sys
-from os import environ
-
 import settings as s
 import spiders
 import tldextract
@@ -13,9 +6,9 @@ from crochet import setup
 from scrapy.crawler import CrawlerRunner
 from scrapy.settings import Settings
 from scrapy.utils.log import configure_logging
-
-setup()
 from scrapy.utils.defer import deferred_to_future
+setup()
+
 
 # if "twisted.internet.reactor" in sys.modules:
 #     del sys.modules["twisted.internet.reactor"]
@@ -43,8 +36,9 @@ async def shutdown(ctx):
 async def getSpider(ctx, url):
     tld = tldextract.extract(url)
     print(tld)
-    # if tld.domain in ctx["blacklists"]["readability"] and not tld.domain in dir(ctx["domains"]):
-    #     return spiders.GenericSpider
+    if (tld.domain in ctx["blacklists"]["readability"] and 
+        tld.domain not in dir(ctx["domains"])):
+        return spiders.GenericSpider
     return getattr(
         spiders,
         (ctx["domains"].get(tld.domain) or ctx["domains"].get("__default__")).get(
