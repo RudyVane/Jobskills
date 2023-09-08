@@ -53,7 +53,7 @@ async def message_edit(arq_ctx, dc_ctx, msg: str):
                 e.request.url, e.request.body, e.request.headers
             )
         )
-        logger.debug("RESPONSE\n{}".format(e.response.headers))
+        logger.debug("RESPONSE\n{}".format(e.response.json))
     # print(msg)
 
 
