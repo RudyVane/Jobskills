@@ -1,6 +1,7 @@
 import quart.flask_patch  # noqa: F401
-from arq.jobs import ResultNotFound
+from arq.jobs import ResultNotFound, logger
 from flask_discord_interactions import Message
+from requests import HTTPError
 
 from jobskills.jobqueue import get_queue, get_redis_settings
 
@@ -23,6 +24,7 @@ async def scrape_pipeline(arq_ctx, dc_ctx, url: str):
             "scrape_handler", url
         )  # , _job_id=("scrape_handler:{}{}".format(dc_ctx.guild_id, url)))
         scrape_res = await scrape_job.result()
+        logger.debug(scrape_res)
         await q.enqueue_job(
             "message_edit", dc_ctx, scrape_res
         )  # , _job_id=("edit_step2:{}{}".format(dc_ctx.guild_id, url)))
@@ -43,7 +45,11 @@ async def scrape_handler(arq_ctx, url: str):
 
 
 async def message_edit(arq_ctx, dc_ctx, msg: str):
-    dc_ctx.edit(Message(content=msg))
+    try:
+        dc_ctx.edit(Message(content=msg))
+    except HTTPError as e:
+        logger.debug(e.request)
+        logger.debug(e.response)
     # print(msg)
 
 
