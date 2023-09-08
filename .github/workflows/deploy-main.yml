@@ -36,4 +36,17 @@ jobs:
     needs: docker
     runs-on: ubuntu-latest
     steps:
-      - run: echo "actually deploy ${{needs.docker.outputs.image-id}}"
+      - uses: actions/checkout@v3
+      - name: Substitute image tag
+        run: |
+          IMAGE_TAG=${{needs.docker.outputs.image-id}}
+          sed -i "s/jobskills:latest/jobskills:$IMAGE_TAG/"" docker-compose.yml
+      - name: Push continuous tag
+        run: |
+          git checkout $(git rev-parse HEAD)
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add docker-compose.yml
+          git commit -m "continuous deployment"
+          git tag -f continuous
+          git push origin continuous -f
