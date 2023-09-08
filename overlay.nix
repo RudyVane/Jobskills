@@ -16,11 +16,6 @@ in {
       });
     }) {};
 
-  docker-entrypoint = callPackage ({writeShellScriptBin}:
-    writeShellScriptBin "docker-entrypoint" ''
-      exec $@
-    '') {};
-
   docker-commands = callPackage ({
     lib,
     jobskills,
@@ -61,15 +56,17 @@ in {
     lib,
     dockerTools,
     docker-commands,
-    docker-entrypoint,
   }:
     dockerTools.streamLayeredImage {
       name = "jobskills";
+      contents = [
+        dockerTools.usrBinEnv
+      ];
       config = {
         Env = [
           "PATH=${lib.makeBinPath [docker-commands]}"
         ];
-        Entrypoint = [(lib.getExe docker-entrypoint)];
+        Entrypoint = [ "/usr/bin/env" ];
       };
 
       created = "@${toString self.sourceInfo.lastModified}";
