@@ -16,9 +16,9 @@ async def shutdown(ctx):
 async def scrape_pipeline(arq_ctx, dc_ctx, url: str):
     print("scrape_pipelines started")
     async with get_queue() as q:
-        await q.enqueue_job(
-            "message_edit", dc_ctx, "Scraping...", {}
-        )  # , _job_id=("edit_step1:{}{}".format(dc_ctx.guild_id, url)))
+        # await q.enqueue_job(
+        #     "message_edit", dc_ctx, "Scraping...", {}
+        # )  # , _job_id=("edit_step1:{}{}".format(dc_ctx.guild_id, url)))
         scrape_job = await q.enqueue_job(
             "scrape_handler", dc_ctx, url
         )  # , _job_id=("scrape_handler:{}{}".format(dc_ctx.guild_id, url)))
