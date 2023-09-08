@@ -56,10 +56,12 @@ in {
       "scrape-worker" = [
         "arq"
         "jobskills.scraper.worker.WorkerSettings"
+        "-v"
       ];
       "discord-worker" = [
         "arq"
         "jobskills.discord.jobs.worker.WorkerSettings"
+        "-v"
       ];
     };
   };
