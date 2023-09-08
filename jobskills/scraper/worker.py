@@ -1,12 +1,14 @@
 import json
+
 import settings as s
 import spiders
 import tldextract
 from crochet import setup
 from scrapy.crawler import CrawlerRunner
 from scrapy.settings import Settings
-from scrapy.utils.log import configure_logging
 from scrapy.utils.defer import deferred_to_future
+from scrapy.utils.log import configure_logging
+
 setup()
 
 
