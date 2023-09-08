@@ -2,7 +2,6 @@ import os
 from pathlib import Path
 
 import quart.flask_patch  # noqa: F401
-from asgiref.wsgi import WsgiToAsgi
 from quart import Quart
 
 from .discord.flask import blueprint as discord_blueprint
@@ -38,4 +37,5 @@ if "API_KEY" in os.environ:
         return result
 
 
-asgi_app = WsgiToAsgi(app)
+# Used by asgi worker
+asgi_app = app
