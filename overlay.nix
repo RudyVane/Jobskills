@@ -16,6 +16,9 @@ in {
         aiofiles = super.aiofiles.overridePythonAttrs (old: {
           nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.hatchling];
         });
+        quart = super.quart.overridePythonAttrs (old: {
+          nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.poetry];
+        });
       });
     }) {};
 
