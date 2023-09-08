@@ -19,6 +19,23 @@ services:
       - discord_public_key
       - discord_client_id
       - discord_client_secret
+  scrape_worker:
+    image: ghcr.io/rudyvane/jobskills:latest
+    command:
+      - "scrape-worker"
+    environment:
+      - REDIS_DSN=redis://redis
+  discord_worker:
+    image: ghcr.io/rudyvane/jobskills:latest
+    command:
+      - "discord-worker"
+    environment:
+      - REDIS_DSN=redis://redis
+  redis:
+    image: redis:alpine
+    restart: always
+    ports:
+      - '6379:6379'
   ngrok:
     image: ngrok/ngrok:3-alpine
     command:

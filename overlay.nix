@@ -55,7 +55,11 @@ in {
       ];
       "scrape-worker" = [
         "arq"
-        "jobskills.scraper.worker.WorkerConfig"
+        "jobskills.scraper.worker.WorkerSettings"
+      ];
+      "discord-worker" = [
+        "arq"
+        "jobskills.discord.jobs.worker.WorkerSettings"
       ];
     };
   };

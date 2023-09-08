@@ -1,13 +1,15 @@
 import json
+import os
 
-import settings as s
-import spiders
 import tldextract
 from crochet import setup
 from scrapy.crawler import CrawlerRunner
 from scrapy.settings import Settings
 from scrapy.utils.defer import deferred_to_future
 from scrapy.utils.log import configure_logging
+
+from . import settings as s
+from . import spiders
 
 setup()
 
@@ -22,11 +24,11 @@ configure_logging(settings)
 
 
 async def startup(ctx):
-    f = open("blacklists.json")
+    f = open(os.path.join(os.path.dirname(__file__), "blacklists.json"))
     ctx["blacklists"] = json.loads(f.read())
     f.close()
 
-    f = open("domains.json")
+    f = open(os.path.join(os.path.dirname(__file__), "domains.json"))
     ctx["domains"] = json.loads(f.read())
     f.close()
 

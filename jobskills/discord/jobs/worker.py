@@ -1,5 +1,5 @@
 import quart.flask_patch  # noqa: F401
-from arq import ResultNotFound
+from arq.jobs import ResultNotFound
 from flask_discord_interactions import Message
 
 from jobskills.jobqueue import get_queue

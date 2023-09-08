@@ -45,7 +45,7 @@ jobs:
       - name: Substitute image tag
         run: |
           IMAGE_TAG=${{needs.docker.outputs.image-id}}
-          sed -i "s/jobskills:latest/jobskills:$IMAGE_TAG/" docker-compose.yml
+          sed -i "s/jobskills:latest/jobskills:$IMAGE_TAG/g" docker-compose.yml
       - name: Push continuous tag
         run: |
           git checkout "$(git rev-parse HEAD)"
