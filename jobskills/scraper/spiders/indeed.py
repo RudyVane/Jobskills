@@ -4,7 +4,6 @@ from bs4 import BeautifulSoup
 
 class IndeedSpider(scrapy.Spider):
     name = "indeed"
-    # allowed_domains = ["indeed.com", "indeed.nl"]
 
     def parse(self, response):
         print("Started parse in IndeedSpider")
@@ -12,6 +11,7 @@ class IndeedSpider(scrapy.Spider):
             response.css("div.jobsearch-JobComponent").get(), "html.parser"
         )
         text.find("div", {"id", "jobsearch-ViewJobButtons-container"}).decompose()
+        text.find("div", {"class", "jobsearch-JobMetadataFooter"}).decompose()
 
         yield {
             "url": response.css('link[rel="canonical"]::attr(href)').get(),

@@ -1,13 +1,14 @@
 import os
 from pathlib import Path
 
+import quart.flask_patch  # noqa: F401
 from asgiref.wsgi import WsgiToAsgi
-from flask import Flask
+from quart import Quart
 
 from .discord.flask import blueprint as discord_blueprint
 
-app = Flask(__name__)
-app.config.from_prefixed_env()
+app = Quart(__name__)
+app.config.from_prefixed_env(prefix="FLASK")
 
 # FIXME: extract to common method
 app.config.update(

@@ -1,7 +1,7 @@
 import os
 
-from flask.blueprints import Blueprint, BlueprintSetupState
 from flask_discord_interactions import DiscordInteractions
+from quart.blueprints import Blueprint, BlueprintSetupState
 
 from .commands import blueprints
 
@@ -14,7 +14,7 @@ def _setup(state: BlueprintSetupState):
     for bp in blueprints:
         discord.register_blueprint(bp)
 
-    discord.set_route("/interaction/")
+    discord.set_route_async("/interaction/")
 
     # TODO: move to option in state.settings
     if "TESTING_GUILD" in os.environ:

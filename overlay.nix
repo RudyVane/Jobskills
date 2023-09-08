@@ -55,7 +55,7 @@ in {
       ];
       "scrape-worker" = [
         "arq"
-        "jobskills.scrape.WorkerConfig"
+        "jobskills.scraper.worker.WorkerConfig"
       ];
     };
   };
