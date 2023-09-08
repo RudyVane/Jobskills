@@ -36,7 +36,9 @@ async def shutdown(ctx):
 async def getSpider(ctx, url):
     tld = tldextract.extract(url)
     print(tld)
-    if tld.domain in ctx["blacklists"]["readability"] and tld.domain not in dir(ctx["domains"]):  # noqa: E501
+    if tld.domain in ctx["blacklists"]["readability"] and tld.domain not in dir(
+        ctx["domains"]
+    ):
         return spiders.GenericSpider
     return getattr(
         spiders,
