@@ -14,13 +14,15 @@ async def get_queue():
         await q.enqueue_job(...)
     """
 
-    redisSettings = RedisSettings()
-
-    if "REDIS_DSN" in environ:
-        redisSettings = RedisSettings.from_dsn(environ.get("REDIS_DSN"))
-
-    q = await create_pool(redisSettings)
+    q = await create_pool(get_redis_settings())
     try:
         yield q
     finally:
         await q.close()
+
+
+def get_redis_settings():
+    if "REDIS_DSN" in environ:
+        return RedisSettings.from_dsn(environ.get("REDIS_DSN"))
+    else:
+        return RedisSettings()

@@ -2,7 +2,7 @@ import quart.flask_patch  # noqa: F401
 from arq.jobs import ResultNotFound
 from flask_discord_interactions import Message
 
-from jobskills.jobqueue import get_queue
+from jobskills.jobqueue import get_queue, get_redis_settings
 
 
 async def startup(ctx):
@@ -51,3 +51,4 @@ class WorkerSettings:
     functions = [scrape_pipeline, scrape_handler, message_edit]
     on_startup = startup
     on_shutdown = shutdown
+    redis_settings = get_redis_settings()

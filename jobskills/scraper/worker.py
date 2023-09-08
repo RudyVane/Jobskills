@@ -8,6 +8,8 @@ from scrapy.settings import Settings
 from scrapy.utils.defer import deferred_to_future
 from scrapy.utils.log import configure_logging
 
+from jobskills.jobqueue import get_redis_settings
+
 from . import settings as s
 from . import spiders
 
@@ -99,3 +101,4 @@ class WorkerSettings:
     queue_name = "arq:scraper"
     on_startup = startup
     on_shutdown = shutdown
+    redis_settings = get_redis_settings()
