@@ -67,7 +67,7 @@ in {
   };
 
   docker-image = callPackage ({
-    self,
+    # self,
     lib,
     dockerTools,
     docker-commands,
@@ -84,7 +84,7 @@ in {
         Entrypoint = ["/usr/bin/env"];
       };
 
-      created = "@${toString self.sourceInfo.lastModified}";
+      # created = "@${toString self.sourceInfo.lastModified}";
     }) {};
 
   deploy-image = callPackage ({
