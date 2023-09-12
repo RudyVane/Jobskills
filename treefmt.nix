@@ -2,13 +2,15 @@
 _: {
   # Used to find the project root
   projectRootFile = "flake.nix";
-  programs.alejandra.enable = true;
-  programs.black.enable = true;
-  programs.isort = {
-    enable = true;
-    profile = "black";
+  programs = {
+    alejandra.enable = true;
+    black.enable = true;
+    isort = {
+      enable = true;
+      profile = "black";
+    };
+    taplo.enable = true;
+    yamlfmt.enable = true;
   };
-  programs.taplo.enable = true;
-  programs.yamlfmt.enable = true;
   settings.formatter.yamlfmt.includes = ["*.yaml" "*.yml"];
 }

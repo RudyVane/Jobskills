@@ -1,29 +1,35 @@
 {
   description = "Application packaged using poetry2nix";
 
-  inputs.systems.url = "github:nix-systems/x86_64-linux";
-  inputs.flake-utils = {
-    url = "github:numtide/flake-utils";
-    inputs.systems.follows = "systems";
-  };
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
-  inputs.poetry2nix = {
-    url = "github:K900/poetry2nix/new-bootstrap-fixes";
-    inputs.nixpkgs.follows = "nixpkgs";
-    inputs.flake-utils.follows = "flake-utils";
-  };
-  inputs.treefmt-nix = {
-    url = "github:numtide/treefmt-nix";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
-  inputs.pre-commit-hooks = {
-    url = "github:cachix/pre-commit-hooks.nix";
-    inputs.nixpkgs.follows = "nixpkgs";
-    inputs.flake-utils.follows = "flake-utils";
-  };
-  inputs.nix-github-actions = {
-    url = "github:nix-community/nix-github-actions";
-    inputs.nixpkgs.follows = "nixpkgs";
+  inputs = {
+    systems.url = "github:nix-systems/x86_64-linux";
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
+    };
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    poetry2nix = {
+      url = "github:K900/poetry2nix/new-bootstrap-fixes";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
+    };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
+    };
+    nix-github-actions = {
+      url = "github:nix-community/nix-github-actions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
