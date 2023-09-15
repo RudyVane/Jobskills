@@ -37,30 +37,10 @@ services:
     restart: always
     ports:
       - '6379:6379'
-  ngrok:
-    image: ngrok/ngrok:3.3.4-alpine
-    command:
-      - 'start'
-      - 'discord_interactions'
-      - '--config'
-      - '/run/secrets/ngrok_authtoken_config'
-      - '--config'
-      - '/ngrok_tunnel_config'
-    secrets:
-      - ngrok_authtoken_config
-    configs:
-      - ngrok_tunnel_config
-    ports:
-      - "4040"
 secrets:
-  ngrok_authtoken_config:
-    external: true
   discord_public_key:
     external: true
   discord_client_secret:
     external: true
   discord_client_id:
-    external: true
-configs:
-  ngrok_tunnel_config:
     external: true
