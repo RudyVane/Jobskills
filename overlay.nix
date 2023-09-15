@@ -23,6 +23,14 @@ in {
           nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.hatch-fancy-pypi-readme];
         });
       });
+
+      pythonImportsCheck = [
+        "jobskills.flask"
+        "jobskills.discord.jobs.worker"
+        "jobskills.scraper.worker"
+        # doesn't import without env...
+        # "jobskills.gpt.gpt"
+      ];
     }) {};
 
   docker-commands = callPackage ({
