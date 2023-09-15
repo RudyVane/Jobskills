@@ -1,5 +1,6 @@
 import json
 import os
+import logging
 from operator import attrgetter
 
 import tldextract
@@ -8,14 +9,16 @@ from scrapy.crawler import CrawlerRunner
 from scrapy.settings import Settings
 from scrapy.utils.defer import deferred_to_future
 from scrapy.utils.log import configure_logging
+from dynaconf import ValidationError
 
 from jobskills.jobqueue import get_redis_settings
+from jobskills.config import settings as jssettings
 
 from . import settings as s
 from . import spiders
 
 setup()
-
+logger = logging.getLogger(__name__)
 
 # if "twisted.internet.reactor" in sys.modules:
 #     del sys.modules["twisted.internet.reactor"]
@@ -27,14 +30,10 @@ configure_logging(settings)
 
 
 async def startup(ctx):
-    f = open(os.path.join(os.path.dirname(__file__), "blacklists.json"))
-    ctx["blacklists"] = json.loads(f.read())
-    f.close()
-
-    f = open(os.path.join(os.path.dirname(__file__), "domains.json"))
-    ctx["domains"] = json.loads(f.read())
-    f.close()
-
+    ctx["blacklists"] = jssettings.scraper.blacklists
+    ctx["domains"] = jssettings.scraper.domains
+    logger.info("Initialized scraper worker")
+    
 
 async def shutdown(ctx):
     pass
@@ -48,7 +47,7 @@ async def getSpider(ctx, url):
     # ):
     #     return spiders.generic.Spider
     getter = attrgetter(
-        (ctx["domains"].get(tld.domain) or ctx["domains"].get("__default__") or {}).get(
+        (ctx["domains"].get(tld.domain) or ctx["domains"].get("_default") or {}).get(
             "spider", "generic"
         )
         + ".Spider"
@@ -59,7 +58,7 @@ async def getSpider(ctx, url):
 async def transformUrl(ctx, url):
     tld = tldextract.extract(url)
     return (
-        (ctx["domains"].get(tld.domain) or ctx["domains"].get("__default__"))
+        (ctx["domains"].get(tld.domain) or ctx["domains"].get("_default"))
         .get("transform", "{}")
         .format(url)
     )

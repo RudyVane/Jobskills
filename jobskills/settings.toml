@@ -1,0 +1,10 @@
+[scraper.domains._default]
+spider = "readability"
+transform = "{}"
+
+[scraper.domains.indeed]
+spider = "indeed"
+transform = "https://webcache.googleusercontent.com/search?q=cache:{}"
+
+[scraper.blacklists]
+readability = ["indeed"]

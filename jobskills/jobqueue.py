@@ -22,6 +22,9 @@ async def get_queue():
 
 
 def get_redis_settings():
+    """
+    Temporary centralized Redis settings until proper config management
+    """
     if "REDIS_DSN" in environ:
         return RedisSettings.from_dsn(environ.get("REDIS_DSN"))
     else:
