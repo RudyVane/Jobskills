@@ -38,7 +38,7 @@ services:
     ports:
       - '6379:6379'
   ngrok:
-    image: ngrok/ngrok:3-alpine
+    image: ngrok/ngrok:3.3.4-alpine
     command:
       - 'start'
       - 'discord_interactions'
