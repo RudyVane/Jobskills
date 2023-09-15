@@ -1,11 +1,12 @@
 import unittest
-from unittest.mock import patch, Mock
-from jobskills.gpt import gpt
+from unittest.mock import Mock, patch
+
 import openai
+
+from jobskills.gpt import gpt
 
 
 class TestGPTFunctions(unittest.TestCase):
-
     @patch("jobskills.gpt.gpt.openai.ChatCompletion.create")
     def test_job_extract_successful_response(self, mock_create):
         # Mock the API response
@@ -35,7 +36,8 @@ class TestGPTFunctions(unittest.TestCase):
         # Mock the API to raise an exception every time it's called
         mock_create.side_effect = openai.error.OpenAIError("API Error")
 
-        with self.assertRaises(SystemExit):  # script should exit after multiple attempts
+        # script should exit after multiple attempts
+        with self.assertRaises(SystemExit):
             gpt.job_extract("sample prompt")
 
         # api should be called 3 times max
@@ -46,10 +48,9 @@ class TestGPTFunctions(unittest.TestCase):
         # Mock the API to raise an exception every time it's called
         mock_create.side_effect = openai.error.OpenAIError("API Error")
 
-        with self.assertRaises(SystemExit):  # script should exit after multiple attempts
+        # script should exit after multiple attempts
+        with self.assertRaises(SystemExit):
             gpt.job_compare("sample prompt", "fake job list")
 
         # api should be called 3 times max
         self.assertEqual(mock_create.call_count, 3)
-
-
