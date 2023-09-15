@@ -1,11 +1,10 @@
 [scraper.domains]
-must_exist=true
-cast='dict'
+must_exist = true
+cast = 'dict'
 
 
 [scraper.domains.__default__]
-must_exist=true
+must_exist = true
 
 [scraper.blacklists]
-must_exist=true
-
+must_exist = true

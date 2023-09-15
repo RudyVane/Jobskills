@@ -1,5 +1,3 @@
-import json
-import os
 import logging
 from operator import attrgetter
 
@@ -9,10 +7,9 @@ from scrapy.crawler import CrawlerRunner
 from scrapy.settings import Settings
 from scrapy.utils.defer import deferred_to_future
 from scrapy.utils.log import configure_logging
-from dynaconf import ValidationError
 
-from jobskills.jobqueue import get_redis_settings
 from jobskills.config import settings as jssettings
+from jobskills.jobqueue import get_redis_settings
 
 from . import settings as s
 from . import spiders
@@ -33,7 +30,7 @@ async def startup(ctx):
     ctx["blacklists"] = jssettings.scraper.blacklists
     ctx["domains"] = jssettings.scraper.domains
     logger.info("Initialized scraper worker")
-    
+
 
 async def shutdown(ctx):
     pass
