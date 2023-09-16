@@ -18,8 +18,8 @@ jobs:
       image-id: ${{ steps.get-docker-id.outputs.tag }}
     steps:
       - uses: actions/checkout@v4
-      - uses: DeterminateSystems/nix-installer-action@main
-      - uses: DeterminateSystems/magic-nix-cache-action@main
+      - uses: DeterminateSystems/nix-installer-action@v4
+      - uses: DeterminateSystems/magic-nix-cache-action@v2
       - name: Login to ghcr.io
         run: |
           nix run .#skopeo -- login \
