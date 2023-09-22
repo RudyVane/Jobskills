@@ -1,0 +1,9 @@
+{
+	http_port 8080
+}
+
+http://*.ngrok-free.app {
+	handle_path /portainer* {
+		reverse_proxy http://portainer:9000
+	}
+}
