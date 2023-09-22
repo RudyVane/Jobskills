@@ -49,13 +49,12 @@ jobs:
           sed -i "s/jobskills:latest/jobskills:$IMAGE_TAG/g" docker-compose.yml
       - name: Push continuous tag
         run: |
-          git checkout "$(git rev-parse HEAD)"
+          git checkout -B current-deployment
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add docker-compose.yml
           git commit -m "continuous deployment"
-          git tag -f continuous
-          git push origin continuous -f
+          git push origin current-deployment -f
   deploy:
     needs: set-tag
     runs-on: ubuntu-latest
