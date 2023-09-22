@@ -2,12 +2,21 @@ final: _prev: let
   inherit (final) callPackage;
 in {
   jobskills = callPackage ({
-    self,
     poetry2nix,
     python311,
   }:
     poetry2nix.mkPoetryApplication {
-      projectDir = self;
+      projectDir = with final.lib.fileset;
+        toSource {
+          root = ./.;
+          fileset = unions [
+            ./jobskills
+            ./tests
+            ./pyproject.toml
+            ./poetry.lock
+            ./README.md
+          ];
+        };
       python = python311;
       overrides = poetry2nix.overrides.withDefaults (_self: super: {
         flask = super.flask.overridePythonAttrs (old: {
