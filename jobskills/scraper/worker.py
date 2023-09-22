@@ -2,6 +2,7 @@ import logging
 from operator import attrgetter
 
 import tldextract
+from arq.connections import RedisSettings
 from crochet import setup
 from scrapy.crawler import CrawlerRunner
 from scrapy.settings import Settings
@@ -9,7 +10,6 @@ from scrapy.utils.defer import deferred_to_future
 from scrapy.utils.log import configure_logging
 
 from jobskills.config import settings as jssettings
-from jobskills.jobqueue import get_redis_settings
 
 from . import settings as s
 from . import spiders
@@ -99,4 +99,4 @@ class WorkerSettings:
     queue_name = "arq:scraper"
     on_startup = startup
     on_shutdown = shutdown
-    redis_settings = get_redis_settings()
+    redis_settings = RedisSettings.from_dsn(settings.redis.dsn)
