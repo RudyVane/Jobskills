@@ -33,7 +33,7 @@ jobs:
         run: |
           set -Eeu
           echo "tag=$(nix eval --json '.#docker-image.imageTag')" >> "$GITHUB_OUTPUT"
-  production:
+  set-tag:
     needs: docker
     runs-on: ubuntu-latest
     concurrency:
@@ -56,3 +56,13 @@ jobs:
           git commit -m "continuous deployment"
           git tag -f continuous
           git push origin continuous -f
+  deploy:
+    needs: set-tag
+    runs-on: ubuntu-latest
+    environment: Deploy
+    steps:
+      - name: Invoke deployment hook
+        uses: distributhor/workflow-webhook@v3
+        env:
+          webhook_url: ${{ secrets.PORTAINER_WEBHOOK_URL }}${{ secrets.PORTAINER_STACK_ID }}
+          webhook_secret: ${{ secrets.NGROK_SECRET_TOKEN }}

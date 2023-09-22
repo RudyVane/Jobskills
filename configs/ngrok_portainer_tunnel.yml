@@ -1,0 +1,6 @@
+version: 2
+tunnels:
+  portainer:
+    labels:
+      - edge=edghtsrt_2VR2ssgTWkvlXKAdi4z3pZ2wlms
+    addr: "proxy:8080"

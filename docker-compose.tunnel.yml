@@ -16,12 +16,15 @@ services:
     configs:
       - ngrok_tunnel_config
       - ngrok_portainer_tunnel_config
+    networks:
+      - ngrok_tunnel_bridge
     ports:
       - "4040"
   proxy:
     image: caddy:2.7.4-alpine
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
+    configs:
+      - source: caddyfile
+        target: /etc/caddy/Caddyfile
     networks:
       - ngrok_tunnel_bridge
 secrets:
@@ -29,9 +32,11 @@ secrets:
     external: true
 configs:
   ngrok_portainer_tunnel_config:
-    external: true
+    file: ./configs/ngrok_portainer_tunnel.yml
   ngrok_tunnel_config:
-    external: true
+    file: ./configs/ngrok_discord_tunnel.yml
+  caddyfile:
+    file: ./configs/Caddyfile
 networks:
   ngrok_tunnel_bridge:
     external: true

@@ -1,0 +1,6 @@
+version: 2
+tunnels:
+  discord_interactions:
+    labels:
+      - edge=edghts_2Vk92vEhxVEfR0QQIADibUvbsrv
+    addr: "app:8080"
