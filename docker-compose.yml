@@ -20,6 +20,8 @@ services:
       - discord_public_key
       - discord_client_id
       - discord_client_secret
+    networks:
+      - ngrok_tunnel_bridge
   scrape_worker:
     image: ghcr.io/rudyvane/jobskills:latest
     command:
@@ -43,4 +45,7 @@ secrets:
   discord_client_secret:
     external: true
   discord_client_id:
+    external: true
+networks:
+  ngrok_tunnel_bridge:
     external: true
