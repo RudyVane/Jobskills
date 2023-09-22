@@ -8,6 +8,7 @@ settings = Dynaconf(
         Validator("scraper.domains", must_exist=True, cast=dict),
         Validator("scraper.domains._default", must_exist=True),
         Validator("scraper.blacklists", must_exist=True),
+        Validator("redis.dsn", must_exist=True),
     ],
     envvar_prefix="JOBSKILLS",
     root_path=os.path.dirname(__file__),

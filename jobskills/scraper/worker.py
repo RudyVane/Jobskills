@@ -9,9 +9,9 @@ from scrapy.settings import Settings
 from scrapy.utils.defer import deferred_to_future
 from scrapy.utils.log import configure_logging
 
-from jobskills.config import settings as jssettings
+from jobskills.config import settings
 
-from . import settings as s
+# from . import settings as s
 from . import spiders
 
 setup()
@@ -22,13 +22,19 @@ logger = logging.getLogger(__name__)
 # asyncioreactor.install()
 
 # settings = get_project_settings()
-settings = Settings({k: getattr(s, k) for k in dir(s) if not k.startswith("_")})
-configure_logging(settings)
+scrapy_settings = Settings(
+    {
+        k: getattr(settings.scraper.scrapy, k)
+        for k in dir(settings.scraper.scrapy)
+        if not k.startswith("_")
+    }
+)
+configure_logging(scrapy_settings)
 
 
 async def startup(ctx):
-    ctx["blacklists"] = jssettings.scraper.blacklists
-    ctx["domains"] = jssettings.scraper.domains
+    ctx["blacklists"] = settings.scraper.blacklists
+    ctx["domains"] = settings.scraper.domains
     logger.info("Initialized scraper worker")
 
 
@@ -68,17 +74,17 @@ def _nop(_):
 # @wait_for(timeout=10)
 async def _scrape(ctx, url, cb=_nop):
     res = {}
-    print(settings)
+    print(scrapy_settings)
 
     class ResPipeline(object):
         def process_item(self, item, spider):
             res.update(dict(item))
             return item
 
-    settings.set(
-        "ITEM_PIPELINES", {**settings.get("ITEM_PIPELINES"), ResPipeline: 1000}
+    scrapy_settings.set(
+        "ITEM_PIPELINES", {**scrapy_settings.get("ITEM_PIPELINES"), ResPipeline: 1000}
     )
-    runner = CrawlerRunner(settings)
+    runner = CrawlerRunner(scrapy_settings)
     s = await getSpider(ctx, url)
     print(s)
     d = runner.crawl(
