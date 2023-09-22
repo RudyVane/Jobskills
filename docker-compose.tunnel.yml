@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  ngrok:
+    image: ngrok/ngrok:3.3.4-alpine
+    command:
+      - 'start'
+      - '--config'
+      - '/run/secrets/ngrok_authtoken_config'
+      - '--config'
+      - '/ngrok_tunnel_config'
+      - '--config'
+      - '/ngrok_portainer_tunnel_config'
+      - '--all'
+    secrets:
+      - ngrok_authtoken_config
+    configs:
+      - ngrok_tunnel_config
+      - ngrok_portainer_tunnel_config
+    networks:
+      - ngrok_tunnel_bridge
+    ports:
+      - "4040"
+secrets:
+  ngrok_authtoken_config:
+    external: true
+configs:
+  ngrok_portainer_tunnel_config:
+    external: true
+  ngrok_tunnel_config:
+    external: true
+networks:
+  ngrok_tunnel_bridge:
+    external: true
