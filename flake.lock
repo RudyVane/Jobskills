@@ -141,15 +141,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1693210164,
-        "narHash": "sha256-k1zB7g+VCNemhalASRiOvPjoQywQn+sCtKx7gQxGJnc=",
-        "owner": "K900",
+        "lastModified": 1695385986,
+        "narHash": "sha256-+LRwlIlmnfdVU0wyK98SQZubr9tgFwtwM6WiRizhM3E=",
+        "owner": "Kiskae",
         "repo": "poetry2nix",
-        "rev": "675e101afeb751077816e3bb11f5a43fa9563479",
+        "rev": "4cf7d4d5afafe4da4925c0141dab589c3e3ba597",
         "type": "github"
       },
       "original": {
-        "owner": "K900",
+        "owner": "Kiskae",
         "ref": "new-bootstrap-fixes",
         "repo": "poetry2nix",
         "type": "github"
