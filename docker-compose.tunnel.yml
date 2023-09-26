@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   ngrok:
-    image: ngrok/ngrok:3.3.4-alpine
+    image: ngrok/ngrok:3.3.5-alpine
     command:
       - 'start'
       - '--config'
