@@ -23,6 +23,7 @@ quart = "^0.18.4"
 
 [tool.poetry.scripts]
 app = "jobskills:main"
+dump_commands = "jobskills.discord.flask:dump_commands"
 
 [tool.poetry.group.dev.dependencies]
 ipython = "^8.14.0"
