@@ -21,6 +21,7 @@ jobs:
   nix-checks:
     needs: nix-matrix
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix: ${{fromJSON(needs.nix-matrix.outputs.matrix)}}
