@@ -9,6 +9,7 @@ _: {
       enable = true;
       profile = "black";
     };
+    ruff.enable = true;
     taplo.enable = true;
     yamlfmt.enable = true;
   };
