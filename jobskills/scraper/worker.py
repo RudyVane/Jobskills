@@ -1,5 +1,5 @@
 import logging
-from operator import attrgetter
+# import importlib
 
 import tldextract
 from arq.connections import RedisSettings
@@ -12,7 +12,21 @@ from scrapy.utils.log import configure_logging
 from jobskills.config import settings
 
 # from . import settings as s
-from . import spiders
+from jobskills.scraper.spiders.generic import Spider as genSpider
+from jobskills.scraper.spiders.readability import Spider as readSpider
+from jobskills.scraper.spiders.indeed import Spider as indSpider
+
+# spiders = {
+#     k: importlib.import_module(k, "jobskills.scraper.spiders").Spider
+#     for k in ["generic", "readability", "indeed"]
+# }
+
+spiders = {
+    "generic": genSpider,
+    "readability": readSpider,
+    "indeed": indSpider
+}
+
 
 setup()
 logger = logging.getLogger(__name__)
@@ -49,13 +63,20 @@ async def getSpider(ctx, url):
     #     ctx["domains"]
     # ):
     #     return spiders.generic.Spider
-    getter = attrgetter(
-        (ctx["domains"].get(tld.domain) or ctx["domains"].get("_default") or {}).get(
+    # getter = attrgetter(
+    #     (ctx["domains"].get(tld.domain) or ctx["domains"].get("_default") or {}).get(
+    #         "spider", "generic"
+    #     )
+    #     + ".Spider"
+    # )
+    # return getter(spiders)
+    smod_name = (ctx["domains"].get(tld.domain) or ctx["domains"].get("_default") or {}).get(
             "spider", "generic"
         )
-        + ".Spider"
-    )
-    return getter(spiders)
+    # smod = importlib.import_module(smod_name, "jobskills.scraper.spiders")
+    smod = spiders.get(smod_name)
+    print(smod)
+    return smod
 
 
 async def transformUrl(ctx, url):
