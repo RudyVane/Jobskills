@@ -35,7 +35,7 @@ services:
     environment:
       - REDIS_DSN=redis://redis
   redis:
-    image: redis:7.2.1-alpine
+    image: redis:7.2.1-alpine3.18
     restart: always
     ports:
       - '6379:6379'
