@@ -1,5 +1,4 @@
 import logging
-# import importlib
 
 import tldextract
 from arq.connections import RedisSettings
@@ -10,32 +9,21 @@ from scrapy.utils.defer import deferred_to_future
 from scrapy.utils.log import configure_logging
 
 from jobskills.config import settings
-
-# from . import settings as s
 from jobskills.scraper.spiders.generic import Spider as genSpider
-from jobskills.scraper.spiders.readability import Spider as readSpider
 from jobskills.scraper.spiders.indeed import Spider as indSpider
+from jobskills.scraper.spiders.readability import Spider as readSpider
 
 # spiders = {
 #     k: importlib.import_module(k, "jobskills.scraper.spiders").Spider
 #     for k in ["generic", "readability", "indeed"]
 # }
 
-spiders = {
-    "generic": genSpider,
-    "readability": readSpider,
-    "indeed": indSpider
-}
+spiders = {"generic": genSpider, "readability": readSpider, "indeed": indSpider}
 
 
 setup()
 logger = logging.getLogger(__name__)
 
-# if "twisted.internet.reactor" in sys.modules:
-#     del sys.modules["twisted.internet.reactor"]
-# asyncioreactor.install()
-
-# settings = get_project_settings()
 scrapy_settings = Settings(
     {
         k: getattr(settings.scraper.scrapy, k)
@@ -59,21 +47,9 @@ async def shutdown(ctx):
 async def getSpider(ctx, url):
     tld = tldextract.extract(url)
     print(tld)
-    # if tld.domain in ctx["blacklists"]["readability"] and tld.domain not in dir(
-    #     ctx["domains"]
-    # ):
-    #     return spiders.generic.Spider
-    # getter = attrgetter(
-    #     (ctx["domains"].get(tld.domain) or ctx["domains"].get("_default") or {}).get(
-    #         "spider", "generic"
-    #     )
-    #     + ".Spider"
-    # )
-    # return getter(spiders)
-    smod_name = (ctx["domains"].get(tld.domain) or ctx["domains"].get("_default") or {}).get(
-            "spider", "generic"
-        )
-    # smod = importlib.import_module(smod_name, "jobskills.scraper.spiders")
+    smod_name = (
+        ctx["domains"].get(tld.domain) or ctx["domains"].get("_default") or {}
+    ).get("spider", "generic")
     smod = spiders.get(smod_name)
     print(smod)
     return smod
