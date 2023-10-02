@@ -98,18 +98,11 @@ def job_compare(prompt, job_advert_list):
     exit(1)
 
 
-def api_interaction(skills_matrix_file, job_advert_file):
+def api_interaction(skills_matrix_content, job_advert_content):
     print("Compare mode started.")
-    try:
-        with open(skills_matrix_file, "r") as file:
-            skills_matrix = file.read()
-    except FileNotFoundError:
-        return "Skills Matrix file not found."
-    try:
-        with open(job_advert_file, "r") as file:
-            job_advert = file.read().replace("\n", "")
-    except FileNotFoundError:
-        return "Job Advert file not found."
+    skills_matrix = skills_matrix_content
+    job_advert = job_advert_content.replace("\n", "")
+
     prompt1 = (
         f"Here is a job advert: {job_advert}. \n "
         f"Please extract a list of all relevant skills mentioned in this advert. "
