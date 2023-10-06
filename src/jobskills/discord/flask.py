@@ -16,14 +16,14 @@ def _setup(state: BlueprintSetupState):
     for bp in blueprints:
         discord.register_blueprint(bp)
 
-    discord.set_route_async("/interaction/")
+    discord.set_route_async(state.app.config.get("discord.endpoint", "/interaction/"))
 
-    # TODO: move to option in state.settings
-    if "TESTING_GUILD" in os.environ:
-        discord.update_commands(guild_id=os.environ["TESTING_GUILD"])
+    guild_id = state.app.config.get("discord.testing_guild_id", None)
+    if guild_id is not None:
+        discord.update_commands(guild_id=guild_id)
     else:
         state.app.logger.warning(
-            "Not updating discord commands, no 'TESTING_GUILD' id set"
+            "Not updating discord commands, no 'discord.testing_guild_id' id set"
         )
 
 
