@@ -1,4 +1,5 @@
 import logging
+import uuid
 
 import tldextract
 from arq.connections import RedisSettings
@@ -12,8 +13,6 @@ from jobskills.config import settings
 from jobskills.scraper.spiders.generic import Spider as genSpider
 from jobskills.scraper.spiders.indeed import Spider as indSpider
 from jobskills.scraper.spiders.readability import Spider as readSpider
-
-import uuid
 
 # spiders = {
 #     k: importlib.import_module(k, "jobskills.scraper.spiders").Spider
@@ -97,13 +96,13 @@ async def _scrape(ctx, url, cb=_nop):
 
 async def scrape(ctx, url, cb=_nop):
     return await _scrape(ctx, url, cb=cb)
-    
+
     # Store the scraped content in Redis with a unique identifier
     job_id = str(uuid.uuid4())
-    await ctx['redis'].set(job_id, scraped_content)
-    
+    await ctx["redis"].set(job_id, scraped_content)
+
     # Enqueue the GPT job with the unique identifier
-    await ctx['queue'].enqueue_job("gpt_handler", job_id)
+    await ctx["queue"].enqueue_job("gpt_handler", job_id)
 
 
 class WorkerSettings:

@@ -1,6 +1,8 @@
-import pytest
 from unittest.mock import AsyncMock, patch
+
+import pytest
 from gpt.worker import gpt_handler
+
 
 @pytest.mark.asyncio
 async def test_gpt_handler():
@@ -9,7 +11,9 @@ async def test_gpt_handler():
     mock_redis.get.return_value = "sample scraped content"
 
     # Mocking the GPT function to return a sample result
-    with patch('gpt.worker.your_gpt_function', return_value="sample gpt result") as mock_gpt_function:
+    with patch(
+        "gpt.worker.your_gpt_function", return_value="sample gpt result"
+    ) as mock_gpt_function:
         result = await gpt_handler({"redis": mock_redis}, "sample_job_id")
 
     # Assertions

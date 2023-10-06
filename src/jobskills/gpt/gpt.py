@@ -6,7 +6,7 @@ import time
 import openai
 from dotenv import load_dotenv
 
-# TODO: Documentation. and maybe add an extra prompt that will take a skill matrix out of the file_content, incase the user sends a whole resume. 
+# TODO: Documentation. and maybe add an extra prompt that will take a skill matrix out of the file_content, incase the user sends a whole resume.
 
 load_dotenv()
 
@@ -131,4 +131,4 @@ def api_interaction(skills_matrix_content, job_advert_content):
     return ai_response
 
 
-# Seperate prompt to extract a skills matrix from the users resume, if user has send a skills matrix, return the skills matrix as is. 
+# Seperate prompt to extract a skills matrix from the users resume, if user has send a skills matrix, return the skills matrix as is.
