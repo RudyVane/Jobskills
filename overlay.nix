@@ -3,7 +3,7 @@ final: _prev: let
 in {
   jobskills = callPackage ({
     poetry2nix,
-    python311,
+    python310,
   }:
     poetry2nix.mkPoetryApplication {
       projectDir = with final.lib.fileset;
@@ -17,7 +17,7 @@ in {
             ./README.md
           ];
         };
-      python = python311;
+      python = python310;
       overrides = poetry2nix.overrides.withDefaults (_self: super: {
         flask = super.flask.overridePythonAttrs (old: {
           nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.flit-core];
