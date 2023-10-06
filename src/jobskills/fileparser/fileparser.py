@@ -2,7 +2,7 @@ import os
 
 from filetypes import docx, pdf, txt
 
-
+# TODO: use library instead of my own ducttape files.
 def file_parsing(file):
     # Determine the file extension
     file_extension = os.path.splitext(file)[1].lower()
