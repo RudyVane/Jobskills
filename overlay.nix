@@ -10,7 +10,7 @@ in {
         toSource {
           root = ./.;
           fileset = unions [
-            ./jobskills
+            ./src
             ./tests
             ./pyproject.toml
             ./poetry.lock
