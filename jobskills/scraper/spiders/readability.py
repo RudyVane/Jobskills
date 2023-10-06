@@ -16,5 +16,5 @@ class Spider(scrapy.Spider):
             "lang": response.css("html::attr(lang)").get()
             or "en",  # default to english?
             "title": doc.title(),
-            "text": BeautifulSoup(doc.summary(), "lxml").get_text(),
+            "text": BeautifulSoup(doc.summary()).get_text(),
         }
