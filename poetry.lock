@@ -1714,6 +1714,17 @@ docs = ["pydata_sphinx_theme"]
 dotenv = ["python-dotenv"]
 
 [[package]]
+name = "quart-flask-patch"
+version = "0.1.0"
+description = "Quart-Flask-Patch is a Quart extension that patches Quart to work with Flask extensions."
+optional = false
+python-versions = "*"
+files = [
+    {file = "quart_flask_patch-0.1.0-py2.py3-none-any.whl", hash = "sha256:8408ca7e2b794e0217262b30e30d8dbb5d84be6a965290a5cd9a1e13a78e43c2"},
+    {file = "quart_flask_patch-0.1.0.tar.gz", hash = "sha256:e53a0e3b707c826cd1029e4d1edd31a8f26841fe9e1d5bd20cc8f6038a383341"},
+]
+
+[[package]]
 name = "queuelib"
 version = "1.6.2"
 description = "Collection of persistent (disk-based) and non-persistent (memory-based) queues"
@@ -2379,4 +2390,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "c44a221a8a449af5346ecbdc1ced614e84b42a4d57528a4f7f95a8b923e82059"
+content-hash = "68a7801e73f7ac6112a24df3ebfe149092cb3b307127b1ded53e57804e321318"
