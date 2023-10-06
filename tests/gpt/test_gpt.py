@@ -2,8 +2,11 @@ import unittest
 from unittest.mock import Mock, patch
 
 import openai
+import pytest
 
-from jobskills.gpt import gpt
+pytest.skip("no api key", allow_module_level=True)
+
+from jobskills.gpt import gpt  # noqa: E402
 
 
 class TestGPTFunctions(unittest.TestCase):
