@@ -1,16 +1,17 @@
 from flask_discord_interactions import (
     ActionRow,
     DiscordInteractionsBlueprint,
+    FileInput,
+    Message,
     Modal,
     TextInput,
     TextStyles,
-    FileInput,
-    Message
 )
 
 from jobskills.jobqueue import get_queue
 
 bp = DiscordInteractionsBlueprint()
+
 
 # TODO allow file upload with url. modal i guess?
 @bp.command()
@@ -20,12 +21,13 @@ def scrape(ctx):
         ActionRow(
             [
                 TextInput("url_input", "Enter the URL:", required=True),
-                FileInput("file_input", "Upload resume:", required=True)
+                FileInput("file_input", "Upload resume:", required=True),
             ]
         )
     ]
     # Open the modal
     return Modal("scrape_modal", "Scrape Data", fields)
+
 
 @bp.custom_handler("scrape_modal")
 async def scrape_submit(ctx):
