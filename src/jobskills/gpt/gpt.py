@@ -131,6 +131,8 @@ def api_interaction(skills_matrix_content, job_advert_content):
     return ai_response
 
 
+# Seperate prompt to extract a skills matrix from the users resume, if user has send a skills matrix, return the skills matrix as is. 
+
 # replace skills_matrix.txt with variable from bot
 # replace job_advert.txt with actual job_advert scrape result
 if __name__ == "__main__":
