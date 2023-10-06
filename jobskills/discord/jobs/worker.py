@@ -1,4 +1,3 @@
-import quart.flask_patch  # noqa: F401
 from arq.connections import RedisSettings
 from arq.jobs import ResultNotFound, logger
 from flask_discord_interactions import Message

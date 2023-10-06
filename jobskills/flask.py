@@ -1,7 +1,6 @@
 import os
 from pathlib import Path
 
-import quart.flask_patch  # noqa: F401
 from quart import Quart
 
 from .discord.flask import blueprint as discord_blueprint
