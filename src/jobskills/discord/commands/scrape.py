@@ -31,7 +31,7 @@ def scrape(ctx):
 async def scrape_submit(ctx):
     # Retrieve data from the modal
     url = ctx.get_component("url_input").value
-    file = ctx.get_component("file_input").value if ctx.get_component("file_input") else None
+    file = ctx.get_component("file_input").value
 
     # Enqueue the scrape_pipeline job with the provided data
     async with get_queue() as q:
