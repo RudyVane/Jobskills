@@ -20,6 +20,8 @@ services:
       - discord_public_key
       - discord_client_id
       - discord_client_secret
+    networks:
+      - ngrok_tunnel_bridge
   scrape_worker:
     image: ghcr.io/rudyvane/jobskills:latest
     command:
@@ -33,34 +35,17 @@ services:
     environment:
       - REDIS_DSN=redis://redis
   redis:
-    image: redis:alpine
+    image: redis:7.2.1-alpine3.18
     restart: always
     ports:
       - '6379:6379'
-  ngrok:
-    image: ngrok/ngrok:3-alpine
-    command:
-      - 'start'
-      - 'discord_interactions'
-      - '--config'
-      - '/run/secrets/ngrok_authtoken_config'
-      - '--config'
-      - '/ngrok_tunnel_config'
-    secrets:
-      - ngrok_authtoken_config
-    configs:
-      - ngrok_tunnel_config
-    ports:
-      - "4040"
 secrets:
-  ngrok_authtoken_config:
-    external: true
   discord_public_key:
     external: true
   discord_client_secret:
     external: true
   discord_client_id:
     external: true
-configs:
-  ngrok_tunnel_config:
+networks:
+  ngrok_tunnel_bridge:
     external: true

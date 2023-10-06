@@ -11,6 +11,7 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    timeout-minutes: 10
     permissions:
       contents: read
       packages: write
@@ -18,8 +19,10 @@ jobs:
       image-id: ${{ steps.get-docker-id.outputs.tag }}
     steps:
       - uses: actions/checkout@v4
-      - uses: DeterminateSystems/nix-installer-action@main
-      - uses: DeterminateSystems/magic-nix-cache-action@main
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+      - uses: DeterminateSystems/nix-installer-action@v5
+      - uses: DeterminateSystems/magic-nix-cache-action@v2
       - name: Login to ghcr.io
         run: |
           nix run .#skopeo -- login \
@@ -33,7 +36,7 @@ jobs:
         run: |
           set -Eeu
           echo "tag=$(nix eval --json '.#docker-image.imageTag')" >> "$GITHUB_OUTPUT"
-  production:
+  set-tag:
     needs: docker
     runs-on: ubuntu-latest
     concurrency:
@@ -43,16 +46,27 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
       - name: Substitute image tag
         run: |
           IMAGE_TAG=${{needs.docker.outputs.image-id}}
           sed -i "s/jobskills:latest/jobskills:$IMAGE_TAG/g" docker-compose.yml
       - name: Push continuous tag
         run: |
-          git checkout "$(git rev-parse HEAD)"
+          git checkout -B current-deployment
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add docker-compose.yml
           git commit -m "continuous deployment"
-          git tag -f continuous
-          git push origin continuous -f
+          git push origin current-deployment -f
+  deploy:
+    needs: set-tag
+    runs-on: ubuntu-latest
+    environment: Deploy
+    steps:
+      - name: Invoke deployment hook
+        uses: distributhor/workflow-webhook@v3
+        env:
+          webhook_url: ${{ secrets.PORTAINER_WEBHOOK_URL }}${{ secrets.PORTAINER_STACK_ID }}
+          webhook_secret: ${{ secrets.NGROK_SECRET_TOKEN }}

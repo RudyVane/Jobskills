@@ -1,3 +1,6 @@
-from . import help, modal, offer, ping, scrape
+import importlib
 
-blueprints = [x.bp for x in [ping, offer, modal, help, scrape]]
+blueprints = [
+    importlib.import_module(f".{name}", __name__).bp
+    for name in ["ping", "offer", "modal", "help", "scrape"]
+]
