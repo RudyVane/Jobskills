@@ -1,11 +1,11 @@
 from contextlib import asynccontextmanager
-from os import environ
 
 from arq import create_pool
 from arq.connections import RedisSettings
 
+from jobskills.config import settings
 
-# TODO: use a centralized config manager
+
 @asynccontextmanager
 async def get_queue():
     """
@@ -14,15 +14,8 @@ async def get_queue():
         await q.enqueue_job(...)
     """
 
-    q = await create_pool(get_redis_settings())
+    q = await create_pool(RedisSettings.from_dsn(settings.redis.dsn))
     try:
         yield q
     finally:
         await q.close()
-
-
-def get_redis_settings():
-    if "REDIS_DSN" in environ:
-        return RedisSettings.from_dsn(environ.get("REDIS_DSN"))
-    else:
-        return RedisSettings()

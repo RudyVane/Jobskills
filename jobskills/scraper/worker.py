@@ -1,39 +1,43 @@
-import json
-import os
-from operator import attrgetter
+import logging
 
 import tldextract
+from arq.connections import RedisSettings
 from crochet import setup
 from scrapy.crawler import CrawlerRunner
 from scrapy.settings import Settings
 from scrapy.utils.defer import deferred_to_future
 from scrapy.utils.log import configure_logging
 
-from jobskills.jobqueue import get_redis_settings
+from jobskills.config import settings
+from jobskills.scraper.spiders.generic import Spider as genSpider
+from jobskills.scraper.spiders.indeed import Spider as indSpider
+from jobskills.scraper.spiders.readability import Spider as readSpider
 
-from . import settings as s
-from . import spiders
+# spiders = {
+#     k: importlib.import_module(k, "jobskills.scraper.spiders").Spider
+#     for k in ["generic", "readability", "indeed"]
+# }
+
+spiders = {"generic": genSpider, "readability": readSpider, "indeed": indSpider}
+
 
 setup()
+logger = logging.getLogger(__name__)
 
-
-# if "twisted.internet.reactor" in sys.modules:
-#     del sys.modules["twisted.internet.reactor"]
-# asyncioreactor.install()
-
-# settings = get_project_settings()
-settings = Settings({k: getattr(s, k) for k in dir(s) if not k.startswith("_")})
-configure_logging(settings)
+scrapy_settings = Settings(
+    {
+        k: getattr(settings.scraper.scrapy, k)
+        for k in dir(settings.scraper.scrapy)
+        if not k.startswith("_")
+    }
+)
+configure_logging(scrapy_settings)
 
 
 async def startup(ctx):
-    f = open(os.path.join(os.path.dirname(__file__), "blacklists.json"))
-    ctx["blacklists"] = json.loads(f.read())
-    f.close()
-
-    f = open(os.path.join(os.path.dirname(__file__), "domains.json"))
-    ctx["domains"] = json.loads(f.read())
-    f.close()
+    ctx["blacklists"] = settings.scraper.blacklists
+    ctx["domains"] = settings.scraper.domains
+    logger.info("Initialized scraper worker")
 
 
 async def shutdown(ctx):
@@ -43,23 +47,18 @@ async def shutdown(ctx):
 async def getSpider(ctx, url):
     tld = tldextract.extract(url)
     print(tld)
-    # if tld.domain in ctx["blacklists"]["readability"] and tld.domain not in dir(
-    #     ctx["domains"]
-    # ):
-    #     return spiders.generic.Spider
-    getter = attrgetter(
-        (ctx["domains"].get(tld.domain) or ctx["domains"].get("__default__") or {}).get(
-            "spider", "generic"
-        )
-        + ".Spider"
-    )
-    return getter(spiders)
+    smod_name = (
+        ctx["domains"].get(tld.domain) or ctx["domains"].get("_default") or {}
+    ).get("spider", "generic")
+    smod = spiders.get(smod_name)
+    print(smod)
+    return smod
 
 
 async def transformUrl(ctx, url):
     tld = tldextract.extract(url)
     return (
-        (ctx["domains"].get(tld.domain) or ctx["domains"].get("__default__"))
+        (ctx["domains"].get(tld.domain) or ctx["domains"].get("_default"))
         .get("transform", "{}")
         .format(url)
     )
@@ -72,17 +71,17 @@ def _nop(_):
 # @wait_for(timeout=10)
 async def _scrape(ctx, url, cb=_nop):
     res = {}
-    print(settings)
+    print(scrapy_settings)
 
     class ResPipeline(object):
         def process_item(self, item, spider):
             res.update(dict(item))
             return item
 
-    settings.set(
-        "ITEM_PIPELINES", {**settings.get("ITEM_PIPELINES"), ResPipeline: 1000}
+    scrapy_settings.set(
+        "ITEM_PIPELINES", {**scrapy_settings.get("ITEM_PIPELINES"), ResPipeline: 1000}
     )
-    runner = CrawlerRunner(settings)
+    runner = CrawlerRunner(scrapy_settings)
     s = await getSpider(ctx, url)
     print(s)
     d = runner.crawl(
@@ -103,4 +102,4 @@ class WorkerSettings:
     queue_name = "arq:scraper"
     on_startup = startup
     on_shutdown = shutdown
-    redis_settings = get_redis_settings()
+    redis_settings = RedisSettings.from_dsn(settings.redis.dsn)

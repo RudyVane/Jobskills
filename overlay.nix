@@ -31,6 +31,9 @@ in {
         twisted = super.twisted.overridePythonAttrs (old: {
           nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.hatch-fancy-pypi-readme];
         });
+        dynaconf = super.dynaconf.overridePythonAttrs (old: {
+          nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.setuptools];
+        });
       });
 
       pythonImportsCheck = [
