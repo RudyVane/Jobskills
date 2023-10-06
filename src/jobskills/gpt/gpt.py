@@ -6,7 +6,7 @@ import time
 import openai
 from dotenv import load_dotenv
 
-# ToDo: Documentation.
+# TODO: Documentation. and maybe add an extra prompt that will take a skill matrix out of the file_content, incase the user sends a whole resume. 
 
 load_dotenv()
 
@@ -132,10 +132,3 @@ def api_interaction(skills_matrix_content, job_advert_content):
 
 
 # Seperate prompt to extract a skills matrix from the users resume, if user has send a skills matrix, return the skills matrix as is. 
-
-# replace skills_matrix.txt with variable from bot
-# replace job_advert.txt with actual job_advert scrape result
-if __name__ == "__main__":
-    skills_matrix_file = "skills_matrix.txt"
-    job_advert_file = "job_advert.txt"
-    api_interaction(skills_matrix_file, job_advert_file)
