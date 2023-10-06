@@ -7,9 +7,7 @@ class Spider(scrapy.Spider):
 
     def parse(self, response):
         print("Started parse in IndeedSpider")
-        text = BeautifulSoup(
-            response.css("div.jobsearch-JobComponent").get(), "lxml"
-        )
+        text = BeautifulSoup(response.css("div.jobsearch-JobComponent").get(), "lxml")
         text.find("div", {"id", "jobsearch-ViewJobButtons-container"}).decompose()
         text.find("div", {"class", "jobsearch-JobMetadataFooter"}).decompose()
 
