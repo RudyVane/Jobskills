@@ -14,16 +14,29 @@ async def startup(ctx):
 async def shutdown(ctx):
     pass
 
-
-async def scrape_pipeline(arq_ctx, dc_ctx, url: str, file_content: str):
+# should determine the file type. attempt to parse it?, before GPT gets called. 
+async def scrape_pipeline(arq_ctx, dc_ctx, url: str, file: any):
     print("scrape_pipelines started")
     async with get_queue() as q:
+        # enqueue file parsing.
+        file_parsing_job = await q.enqueue_job("fileparser_handler", file)
+        file_content = await file_parsing_job.result()
+        
+        # Check if the file type is unsupported
+        if file_content == "Unsupported filetype":
+            # Handle the error (e.g., send a message to the user or cancel the pipeline)
+            await q.enqueue_job("send_to_discord", dc_ctx, "Unsupported file type provided. Please upload a supported format.")
+            return
+
+        # enqueue scraping
         scrape_job = await q.enqueue_job("scrape_handler", url)
         scrape_res = await scrape_job.result()
         logger.debug(scrape_res)
         
+        # enqueue gpt
         gpt_result = await q.enqueue_job("gpt_handler", scrape_res, file_content)
 
+        # send result back
         await q.enqueue_job("send_to_discord", dc_ctx, gpt_result)
 
 
