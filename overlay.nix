@@ -43,6 +43,12 @@ in {
         # doesn't import without env...
         # "jobskills.gpt.gpt"
       ];
+
+      checkPhase = ''
+        runHook preCheck
+        pytest
+        runHook postCheck
+      '';
     }) {};
 
   docker-commands = callPackage ({
