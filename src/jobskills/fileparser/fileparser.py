@@ -17,7 +17,7 @@ def file_parsing(file):
     else:
         return "Unsupported filetype"
 
-
+# install textract and its dependencies: 
 # import textract 
 # def file_parsing(file)
 #   text_bytes = textract.process(file)
