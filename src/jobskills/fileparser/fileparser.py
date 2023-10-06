@@ -16,3 +16,9 @@ def file_parsing(file):
         return txt.parse(file)
     else:
         return "Unsupported filetype"
+
+
+# import textract 
+# def file_parsing(file)
+#   text_bytes = textract.process(file)
+#   return text_bytes.decote('utf-8')
