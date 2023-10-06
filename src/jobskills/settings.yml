@@ -1,4 +1,6 @@
 DEFAULT:
+  EXTENSIONS:
+    - "jobskills.discord.flask:discord_extension"
   scraper:
     scrapy:
       BOT_NAME: jobskills.scraper
