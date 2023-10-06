@@ -34,6 +34,9 @@ in {
         dynaconf = super.dynaconf.overridePythonAttrs (old: {
           nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.setuptools];
         });
+        quart-flask-patch = super.quart-flask-patch.overridePythonAttrs (old: {
+          nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.poetry];
+        });
       });
 
       pythonImportsCheck = [
