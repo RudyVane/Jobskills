@@ -19,6 +19,7 @@ services:
         target: discord_creds.toml
     networks:
       - ngrok_tunnel_bridge
+      - default
   scrape_worker:
     image: ghcr.io/rudyvane/jobskills:latest
     command:
