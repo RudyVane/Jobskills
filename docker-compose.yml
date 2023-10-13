@@ -15,7 +15,7 @@ services:
       - FLASK_DISCORD_CLIENT_SECRET_FILE=/run/secrets/discord_client_secret
       - FLASK_DISCORD_PUBLIC_KEY_FILE=/run/secrets/discord_public_key
       - TESTING_GUILD=1131850431883137044
-      - REDIS_DSN=redis://redis
+      - ENVIRONMENTS_FOR_DYNACONF=production
     secrets:
       - discord_public_key
       - discord_client_id
@@ -27,13 +27,13 @@ services:
     command:
       - "scrape-worker"
     environment:
-      - REDIS_DSN=redis://redis
+      - ENVIRONMENTS_FOR_DYNACONF=production
   discord_worker:
     image: ghcr.io/rudyvane/jobskills:latest
     command:
       - "discord-worker"
     environment:
-      - REDIS_DSN=redis://redis
+      - ENVIRONMENTS_FOR_DYNACONF=production
   redis:
     image: redis:7.2.1-alpine3.18
     restart: always
