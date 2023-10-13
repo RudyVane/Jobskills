@@ -4,10 +4,11 @@ DEFAULT:
   scraper:
     scrapy:
       BOT_NAME: jobskills.scraper
-      USER_AGENT: "Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0"
       ROBOTSTXT_OBEY: false
       DOWNLOAD_DELAY: 3
-      DEFAULT_REQUEST_HEADERS:
+      # pretend to be a real browser
+      USER_AGENT: "Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0"
+      DEFAULT_REQUEST_HEADERS: 
         Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8"
         Accept-Language: "en-US,en;q=0.5"
         Accept-Encoding: "gzip"
@@ -16,17 +17,8 @@ DEFAULT:
         Sec-Fetch-Dest: document
         Sec-Fetch-Mode: navigate
         Sec-Fetch-Site: same-origin
-      SPIDER_MIDDLEWARES:
-        scrapy_splash.SplashDeduplicateArgsMiddleware: 100
-        jobskills.scraper.middlewares.ScraperSpiderMiddleware: 543
-      DOWNLOADER_MIDDLEWARES:
-        scrapy_splash.SplashCookiesMiddleware: 723
-        scrapy_splash.SplashMiddleware: 725
-        scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware: 810
       REQUEST_FINGERPRINTER_IMPLEMENTATION: "2.7"
       FEED_EXPORT_ENCODING: utf-8
-      SPLASH_URL: http://localhost:8050
-      DUPEFILTER_CLASS: scrapy_splash.SplashAwareDupeFilter
     domains:
       _default:
         spider: readability
