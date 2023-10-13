@@ -13,7 +13,7 @@ services:
     environment:
       - SECRETS_FOR_DYNACONF=/run/secrets/discord_creds.toml
       - TESTING_GUILD=1131850431883137044
-      - ENVIRONMENTS_FOR_DYNACONF=production
+      - ENV_FOR_DYNACONF=production
     secrets:
       - source: discord_creds_toml
         target: discord_creds.toml
@@ -24,13 +24,13 @@ services:
     command:
       - "scrape-worker"
     environment:
-      - ENVIRONMENTS_FOR_DYNACONF=production
+      - ENV_FOR_DYNACONF=production
   discord_worker:
     image: ghcr.io/rudyvane/jobskills:latest
     command:
       - "discord-worker"
     environment:
-      - ENVIRONMENTS_FOR_DYNACONF=production
+      - ENV_FOR_DYNACONF=production
   redis:
     image: redis:7.2.1-alpine3.18
     restart: always
