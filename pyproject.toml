@@ -6,7 +6,9 @@ authors = ["Your Name <you@example.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
+# fix for lower versions as libraries like Quart import tomli instead of tomllib
+tomli = { version = "^2.0.1", python = "<3.11" }
 # Flask = {extras = ["async"], version = "^2.3.3"}
 Flask-Discord-Interactions = "^2.1.2"
 python-dotenv = "^1.0.0"
