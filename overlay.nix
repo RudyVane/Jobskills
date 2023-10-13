@@ -40,7 +40,7 @@ in {
       });
 
       pythonImportsCheck = [
-        "jobskills.flask"
+        "jobskills.discord.flask"
         "jobskills.discord.jobs.worker"
         "jobskills.scraper.worker"
         # doesn't import without env...
