@@ -39,4 +39,4 @@ DEVELOPMENT:
     dsn: redis://localhost:6379
 PRODUCTION:
   redis:
-    dsn: redis://localhost:6379
+    dsn: redis://redis:6379
