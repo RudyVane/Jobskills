@@ -38,3 +38,5 @@ DEVELOPMENT:
   redis:
     dsn: redis://localhost:6379
 PRODUCTION:
+  redis:
+    dsn: redis://localhost:6379
