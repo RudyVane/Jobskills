@@ -5,6 +5,8 @@ from arq.connections import RedisSettings
 
 from jobskills.config import settings
 
+q = None
+
 
 @asynccontextmanager
 async def get_queue():
@@ -13,9 +15,10 @@ async def get_queue():
     async with get_queue() as q:
         await q.enqueue_job(...)
     """
-
-    q = await create_pool(RedisSettings.from_dsn(settings.redis.dsn))
-    try:
-        yield q
-    finally:
-        await q.close()
+    global q
+    if q is None:
+        q = await create_pool(RedisSettings.from_dsn(settings.redis.dsn))
+    # try:
+    yield q
+    # finally:
+    #     await q.close()
