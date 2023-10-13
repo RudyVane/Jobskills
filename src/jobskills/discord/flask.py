@@ -36,6 +36,8 @@ def discord_extension(app):
 
 
 def make_app():
+    settings.validators.validate_all()
+
     app = Quart(__name__)
 
     FlaskDynaconf(app, dynaconf_instance=settings, extensions_list="EXTENSIONS")
