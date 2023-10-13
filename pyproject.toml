@@ -24,6 +24,7 @@ arq = "^0.25.0"
 quart = "^0.18.4"
 dynaconf = "^3.2.3"
 werkzeug = "^2"
+quart-flask-patch = "^0.1.0"
 
 [tool.poetry.scripts]
 app = "jobskills:main"
