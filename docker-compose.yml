@@ -11,15 +11,12 @@ services:
     ports:
       - "8080"
     environment:
-      - FLASK_DISCORD_CLIENT_ID_FILE=/run/secrets/discord_client_id
-      - FLASK_DISCORD_CLIENT_SECRET_FILE=/run/secrets/discord_client_secret
-      - FLASK_DISCORD_PUBLIC_KEY_FILE=/run/secrets/discord_public_key
+      - SECRETS_FOR_DYNACONF=/run/secrets/discord_creds.toml
       - TESTING_GUILD=1131850431883137044
       - REDIS_DSN=redis://redis
     secrets:
-      - discord_public_key
-      - discord_client_id
-      - discord_client_secret
+      - source: discord_creds_toml
+        target: discord_creds.toml
     networks:
       - ngrok_tunnel_bridge
   scrape_worker:
@@ -40,11 +37,7 @@ services:
     ports:
       - '6379:6379'
 secrets:
-  discord_public_key:
-    external: true
-  discord_client_secret:
-    external: true
-  discord_client_id:
+  discord_creds_toml:
     external: true
 networks:
   ngrok_tunnel_bridge:
