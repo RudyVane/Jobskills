@@ -33,7 +33,7 @@ services:
     environment:
       - ENV_FOR_DYNACONF=production
   redis:
-    image: redis:7.2.1-alpine3.18
+    image: redis:7.2.2-alpine3.18
     restart: always
     ports:
       - '6379:6379'
