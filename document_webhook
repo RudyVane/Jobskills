@@ -1,0 +1,4 @@
+Ik heb een php script gemaakt om de input van Discord als Jsonfile in te lezen, in de ai te verwerken en als Jsonfile terug te geven aan Discord
+De php file heet ApiHandlerDiscord.php, staat op dit moment op https://ikplaatshethier.nl/Jobsearch/ApiHandlerDiscord.php
+Een uitgebreide beschrijving voor implementatie in Discord staat beschreven in issues 12 en 13
+  
