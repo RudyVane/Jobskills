@@ -1,4 +1,5 @@
 <?php
+
 class ApiHandlerDiscord
 {
     public function handleFormSubmission()
@@ -9,16 +10,18 @@ class ApiHandlerDiscord
         // Check if the JSON file contains job offer and CV data
         if (isset($data['job_offer']) && isset($data['cv'])) {
             // Extract job offer and CV data
-            $jobOffer = $data['job_offer']; echo $job_offer . '<br>';
-            $cv = $data['cv']; echo $cv;
-				$prompt1 = "prompt_job.txt";
-				$prompt2 = "prompt_cv.txt"; 
-				$prompt3 = "prompt_match.txt"; 
-				$prompt4 = "prompt_missing.txt"; 
-				$promptjob = trim(file_get_contents($prompt1));
-				$promptcv = trim(file_get_contents($prompt2));
-				$promptmatch = trim(file_get_contents($prompt3));
-				$promptmissing = trim(file_get_contents($prompt4));
+            $jobOffer = $data['job_offer'];
+            echo $job_offer . '<br>';
+            $cv = $data['cv'];
+            echo $cv;
+            $prompt1 = "prompt_job.txt";
+            $prompt2 = "prompt_cv.txt";
+            $prompt3 = "prompt_match.txt";
+            $prompt4 = "prompt_missing.txt";
+            $promptjob = trim(file_get_contents($prompt1));
+            $promptcv = trim(file_get_contents($prompt2));
+            $promptmatch = trim(file_get_contents($prompt3));
+            $promptmissing = trim(file_get_contents($prompt4));
             // Define the data for the API call for the job offer
             $dataJobOffer = [
                 'messages' => [
@@ -149,8 +152,8 @@ class ApiHandlerDiscord
     // Function to make the API call using cURL
     private function callOpenAiApi($data)
     {
-        $file = "Code/api.txt"; 
-		$api_key = trim(file_get_contents($file));
+        $file = "Code/api.txt";
+        $api_key = trim(file_get_contents($file));
         $url = 'https://api.openai.com/v1/chat/completions';
         $headers = [
             'Content-Type: application/json',
@@ -180,4 +183,3 @@ $apiHandlerDiscord = new ApiHandlerDiscord();
 
 // Handle the form submission
 $apiHandlerDiscord->handleFormSubmission();
-?>
