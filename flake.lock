@@ -154,7 +154,6 @@
       },
       "original": {
         "owner": "nix-community",
-        "ref": "2023.10.27.3490",
         "repo": "poetry2nix",
         "type": "github"
       }
