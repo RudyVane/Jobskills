@@ -6,7 +6,8 @@ in {
     python3,
     poetry,
   }: let
-    overrides = poetry2nix.overrides.withDefaults (_self: super: {
+    overrides = poetry2nix.overrides.withDefaults (_self: _super: {
+      /*
       aiofiles = super.aiofiles.overridePythonAttrs (old: {
         nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.hatchling];
       });
@@ -16,6 +17,7 @@ in {
       quart-flask-patch = super.quart-flask-patch.overridePythonAttrs (old: {
         nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.poetry-core];
       });
+      */
     });
 
     sharedAttrs = {
