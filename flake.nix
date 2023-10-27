@@ -9,7 +9,7 @@
     };
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     poetry2nix = {
-      url = "github:nix-community/poetry2nix/2023.10.27.3490";
+      url = "github:nix-community/poetry2nix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
