@@ -9,7 +9,7 @@ settings = Dynaconf(
         Validator("scraper.domains._default", must_exist=True),
         Validator("scraper.blacklists", must_exist=True),
         Validator("redis.dsn", must_exist=True),
-        Validator("discord.max_msg_len", must_exist=True),
+        Validator("discord.msg_max_len", must_exist=True),
     ],
     envvar_prefix="JOBSKILLS",
     root_path=os.path.dirname(__file__),
