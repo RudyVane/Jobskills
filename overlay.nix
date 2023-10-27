@@ -4,8 +4,21 @@ in {
   jobskills = callPackage ({
     poetry2nix,
     python3,
-  }:
-    poetry2nix.mkPoetryApplication {
+    poetry,
+  }: let
+    overrides = poetry2nix.overrides.withDefaults (_self: super: {
+      aiofiles = super.aiofiles.overridePythonAttrs (old: {
+        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.hatchling];
+      });
+      dynaconf = super.dynaconf.overridePythonAttrs (old: {
+        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.setuptools];
+      });
+      quart-flask-patch = super.quart-flask-patch.overridePythonAttrs (old: {
+        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.poetry-core];
+      });
+    });
+
+    sharedAttrs = {
       projectDir = with final.lib.fileset;
         toSource {
           root = ./.;
@@ -18,32 +31,46 @@ in {
           ];
         };
       python = python3;
-      overrides = poetry2nix.overrides.withDefaults (_self: super: {
-        aiofiles = super.aiofiles.overridePythonAttrs (old: {
-          nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.hatchling];
-        });
-        dynaconf = super.dynaconf.overridePythonAttrs (old: {
-          nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.setuptools];
-        });
-        quart-flask-patch = super.quart-flask-patch.overridePythonAttrs (old: {
-          nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.poetry-core];
-        });
-      });
+      inherit overrides;
+    };
+  in
+    (poetry2nix.mkPoetryApplication (sharedAttrs
+      // {
+        pythonImportsCheck = [
+          "jobskills.discord.flask"
+          "jobskills.discord.jobs.worker"
+          "jobskills.scraper.worker"
+          # doesn't import without env...
+          # "jobskills.gpt.gpt"
+        ];
 
-      pythonImportsCheck = [
-        "jobskills.discord.flask"
-        "jobskills.discord.jobs.worker"
-        "jobskills.scraper.worker"
-        # doesn't import without env...
-        # "jobskills.gpt.gpt"
-      ];
-
-      checkPhase = ''
-        runHook preCheck
-        pytest
-        runHook postCheck
-      '';
-    }) {};
+        checkPhase = ''
+          runHook preCheck
+          pytest
+          runHook postCheck
+        '';
+      }))
+    .overrideAttrs (old: {
+      passthru =
+        (old.passthru or {})
+        // {
+          devShell =
+            (poetry2nix.mkPoetryEnv (sharedAttrs
+              // {
+                editablePackageSources = {
+                  jobskills = ./src;
+                };
+              }))
+            .env
+            .overrideAttrs (oldAttrs: {
+              nativeBuildInputs =
+                (oldAttrs.nativeBuildInputs or [])
+                ++ [
+                  poetry
+                ];
+            });
+        };
+    })) {};
 
   docker-commands = callPackage ({
     lib,
@@ -135,6 +162,8 @@ in {
       skopeo
       treefmtEval
       ;
+
+    inherit (final.jobskills) devShell;
 
     checks = {
       # add derivations here to run during check
