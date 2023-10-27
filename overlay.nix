@@ -35,7 +35,7 @@ in {
           nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.setuptools];
         });
         quart-flask-patch = super.quart-flask-patch.overridePythonAttrs (old: {
-          nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.poetry];
+          nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.poetry-core];
         });
       });
 
