@@ -2,7 +2,7 @@ from io import StringIO
 
 from arq.connections import RedisSettings
 from arq.jobs import ResultNotFound, logger
-from flask_discord_interactions import File, Message
+from flask_discord_interactions import Message
 from requests import HTTPError
 
 from jobskills.config import settings
@@ -43,10 +43,8 @@ async def message_edit(arq_ctx, dc_ctx, msg: str):
         if len(msg) < settings.discord.msg_max_len:
             dc_ctx.edit(Message(content=msg))
         else:
-            buff = StringIO(msg)
-            file = File(buff, filename="message.txt")
-            dc_ctx.edit(Message(file=file))
-            buff.close()
+            with StringIO(msg) as buff:
+                dc_ctx.edit(Message(file=("message.txt", buff.buffer, "text/plain")))
     except HTTPError as e:
         logger.debug(
             "REQUEST\nurl: {}\nbody: {}\nheaders: {}".format(
