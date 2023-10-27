@@ -28,8 +28,8 @@ DEFAULT:
         transform: "https://webcache.googleusercontent.com/search?q=cache:{}"
     blacklists:
       readability: ["indeed"]
-    discord:
-      msg_max_len: 2000
+  discord:
+    msg_max_len: 2000
 DEVELOPMENT:
   redis:
     dsn: redis://localhost:6379
