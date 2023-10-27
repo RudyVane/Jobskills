@@ -1,6 +1,8 @@
+from io import StringIO
+
 from arq.connections import RedisSettings
 from arq.jobs import ResultNotFound, logger
-from flask_discord_interactions import Message
+from flask_discord_interactions import File, Message
 from requests import HTTPError
 
 from jobskills.config import settings
@@ -18,24 +20,15 @@ async def shutdown(ctx):
 async def scrape_pipeline(arq_ctx, dc_ctx, url: str):
     print("scrape_pipelines started")
     async with get_queue() as q:
-        # await q.enqueue_job(
-        #     "message_edit", dc_ctx, "Scraping...", {}
-        # )  # , _job_id=("edit_step1:{}{}".format(dc_ctx.guild_id, url)))
-        scrape_job = await q.enqueue_job(
-            "scrape_handler", url
-        )  # , _job_id=("scrape_handler:{}{}".format(dc_ctx.guild_id, url)))
+        scrape_job = await q.enqueue_job("scrape_handler", url)
         scrape_res = await scrape_job.result()
         logger.debug(scrape_res)
-        await q.enqueue_job(
-            "message_edit", dc_ctx, scrape_res
-        )  # , _job_id=("edit_step2:{}{}".format(dc_ctx.guild_id, url)))
+        await q.enqueue_job("message_edit", dc_ctx, scrape_res)
 
 
 async def scrape_handler(arq_ctx, url: str):
     async with get_queue() as q:
-        scrape_job = await q.enqueue_job(
-            "scrape", url, _queue_name="arq:scraper"
-        )  # , _job_id=("scrape:{}{}".format(dc_ctx.guild_id, url)))
+        scrape_job = await q.enqueue_job("scrape", url, _queue_name="arq:scraper")
         try:
             scrape_res = await scrape_job.result()
             return str(scrape_res.get("text", "Failed to scrape!"))
@@ -47,7 +40,13 @@ async def scrape_handler(arq_ctx, url: str):
 
 async def message_edit(arq_ctx, dc_ctx, msg: str):
     try:
-        dc_ctx.edit(Message(content=msg))
+        if len(msg) < settings.discord.msg_max_len:
+            dc_ctx.edit(Message(content=msg))
+        else:
+            buff = StringIO(msg)
+            file = File(buff, filename="message.txt")
+            dc_ctx.edit(Message(file=file))
+            buff.close()
     except HTTPError as e:
         logger.debug(
             "REQUEST\nurl: {}\nbody: {}\nheaders: {}".format(
@@ -55,7 +54,11 @@ async def message_edit(arq_ctx, dc_ctx, msg: str):
             )
         )
         logger.debug("RESPONSE\n{}".format(e.response.json))
-    # print(msg)
+        dc_ctx.edit(
+            Message(
+                content="Error {}: {}".format(e.response.status_code, e.response.reason)
+            )
+        )
 
 
 class WorkerSettings:
