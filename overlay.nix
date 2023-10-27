@@ -19,17 +19,8 @@ in {
         };
       python = python3;
       overrides = poetry2nix.overrides.withDefaults (_self: super: {
-        flask = super.flask.overridePythonAttrs (old: {
-          nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.flit-core];
-        });
         aiofiles = super.aiofiles.overridePythonAttrs (old: {
           nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.hatchling];
-        });
-        quart = super.quart.overridePythonAttrs (old: {
-          nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.poetry];
-        });
-        twisted = super.twisted.overridePythonAttrs (old: {
-          nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.hatch-fancy-pypi-readme];
         });
         dynaconf = super.dynaconf.overridePythonAttrs (old: {
           nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.setuptools];
