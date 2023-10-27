@@ -13,7 +13,6 @@ tomli = { version = "^2.0.1", python = "<3.11" }
 Flask-Discord-Interactions = "^2.1.2"
 python-dotenv = "^1.0.0"
 openai = "^0.28.0"
-scrapy-splash = "^0.9.0"
 scrapy = "^2.10.1"
 beautifulsoup4 = "^4.12.2"
 readability-lxml = "^0.8.1"

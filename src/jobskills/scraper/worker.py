@@ -24,13 +24,7 @@ spiders = {"generic": genSpider, "readability": readSpider, "indeed": indSpider}
 setup()
 logger = logging.getLogger(__name__)
 
-scrapy_settings = Settings(
-    {
-        k: getattr(settings.scraper.scrapy, k)
-        for k in dir(settings.scraper.scrapy)
-        if not k.startswith("_")
-    }
-)
+scrapy_settings = Settings(settings.scraper.scrapy)
 configure_logging(scrapy_settings)
 
 
@@ -71,7 +65,7 @@ def _nop(_):
 # @wait_for(timeout=10)
 async def _scrape(ctx, url, cb=_nop):
     res = {}
-    print(scrapy_settings)
+    # print(scrapy_settings)
 
     class ResPipeline(object):
         def process_item(self, item, spider):
@@ -82,14 +76,14 @@ async def _scrape(ctx, url, cb=_nop):
         "ITEM_PIPELINES", {**scrapy_settings.get("ITEM_PIPELINES"), ResPipeline: 1000}
     )
     runner = CrawlerRunner(scrapy_settings)
-    s = await getSpider(ctx, url)
-    print(s)
-    d = runner.crawl(
-        s,
+    spider = await getSpider(ctx, url)
+    # print(s)
+    deferred = runner.crawl(
+        spider,
         start_urls=[await transformUrl(ctx, url)],
     )
-    d.addCallback(lambda _: cb(res))
-    await deferred_to_future(d)
+    deferred.addCallback(lambda _: cb(res))
+    await deferred_to_future(deferred)
     return res
 
 
