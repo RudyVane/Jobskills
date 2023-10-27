@@ -20,10 +20,10 @@ crochet = "^2.1.1"
 gunicorn = "^21.2.0"
 uvicorn = "^0.23.2"
 arq = "^0.25.0"
-quart = "^0.18.4"
+quart = "^0.19"
 dynaconf = "^3.2.3"
-werkzeug = "^2"
-quart-flask-patch = "^0.1.0"
+werkzeug = "^3"
+quart-flask-patch = "^0.2.0"
 
 [tool.poetry.scripts]
 app = "jobskills:main"
