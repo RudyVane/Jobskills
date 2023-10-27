@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Create a cURL request to send the JSON data to the API handler
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, 'https://ikplaatshethier.nl/Jobsearch/ApiHandlerDiscord.php');
+    curl_setopt($ch, CURLOPT_URL, 'https://rudy65.privemail.nl/Jobsearch/ApiHandlerDiscord.php');
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
     curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
