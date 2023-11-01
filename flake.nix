@@ -72,10 +72,7 @@
             };
           };
         })
-        (final: prev: let
-          result = poetry2nix.overlay final prev;
-        in
-          builtins.removeAttrs result ["poetry"])
+        poetry2nix.overlays.default
       ];
     }
     // eachSystem (system: {
