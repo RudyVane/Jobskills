@@ -6,10 +6,7 @@ in {
     python3,
     poetry,
   }: let
-    overrides = poetry2nix.overrides.withDefaults (_self: super: {
-      constantly = super.constantly.overridePythonAttrs (old: {
-        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.versioneer];
-      });
+    overrides = poetry2nix.overrides.withDefaults (_self: _super: {
       /*
       aiofiles = super.aiofiles.overridePythonAttrs (old: {
         nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.hatchling];
