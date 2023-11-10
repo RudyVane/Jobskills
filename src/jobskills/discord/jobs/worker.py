@@ -13,7 +13,7 @@ async def startup(ctx):
 
 
 async def shutdown(ctx):
-    pass
+    await ctx["pool"].close()
 
 
 async def scrape_pipeline(arq_ctx, dc_ctx, url: str):
