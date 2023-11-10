@@ -9,7 +9,7 @@ from jobskills.config import settings
 
 
 async def startup(ctx):
-    ctx["pool"] = create_pool(settings.redis)
+    ctx["pool"] = await create_pool(settings.redis)
 
 
 async def shutdown(ctx):
