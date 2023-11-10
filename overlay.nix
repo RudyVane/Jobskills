@@ -169,7 +169,7 @@ in {
 
     checks = {
       # add derivations here to run during check
-      inherit (final) jobskills pre-commit-check;
+      inherit (final) deploy-image pre-commit-check;
       formatting = final.treefmtEval.config.build.check final.self;
     };
   };
