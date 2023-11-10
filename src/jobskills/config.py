@@ -9,7 +9,13 @@ settings = Dynaconf(
         Validator("scraper.domains", must_exist=True, cast=dict),
         Validator("scraper.domains._default", must_exist=True),
         Validator("scraper.blacklists", must_exist=True),
-        Validator("redis", must_exist=True, cast=RedisSettings.from_dsn),
+        Validator(
+            "redis",
+            must_exist=True,
+            cast=lambda v: v
+            if isinstance(v, RedisSettings)
+            else RedisSettings.from_dsn(v),
+        ),
         Validator("discord.msg_max_len", must_exist=True),
     ],
     envvar_prefix="JOBSKILLS",
