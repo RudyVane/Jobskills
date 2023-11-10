@@ -1,5 +1,6 @@
 import os
 
+from arq.connections import RedisSettings
 from dynaconf import Dynaconf, Validator
 
 settings = Dynaconf(
@@ -8,7 +9,7 @@ settings = Dynaconf(
         Validator("scraper.domains", must_exist=True, cast=dict),
         Validator("scraper.domains._default", must_exist=True),
         Validator("scraper.blacklists", must_exist=True),
-        Validator("redis.dsn", must_exist=True),
+        Validator("redis", must_exist=True, cast=RedisSettings.from_dsn),
         Validator("discord.msg_max_len", must_exist=True),
     ],
     envvar_prefix="JOBSKILLS",
