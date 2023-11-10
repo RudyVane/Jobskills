@@ -25,6 +25,9 @@ jobs:
         with:
           ref: ${{ github.event.workflow_run.head_sha }}
       - uses: DeterminateSystems/nix-installer-action@v7
+        with:
+          extra-conf: |
+            max-jobs = 0
       - uses: DeterminateSystems/magic-nix-cache-action@v2
       - name: Login to ghcr.io
         run: |
