@@ -44,9 +44,7 @@ async def message_edit(arq_ctx, dc_ctx, msg: str):
             await dc_ctx.edit(Message(content=msg))
         else:
             with StringIO(msg) as buff:
-                await dc_ctx.edit(
-                    Message(file=("message.txt", buff, "text/plain"))
-                )
+                await dc_ctx.edit(Message(file=("message.txt", buff, "text/plain")))
     except HTTPError as e:
         await dc_ctx.edit(
             Message(
