@@ -15,4 +15,4 @@ async def get_queue():
 async def teardown_queue(_e):
     queue = g.pop("queue", None)
     if queue is not None:
-        queue.close()
+        await queue.close()

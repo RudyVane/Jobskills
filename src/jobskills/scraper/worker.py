@@ -36,7 +36,7 @@ async def startup(ctx):
 
 
 async def shutdown(ctx):
-    pass
+    await ctx["pool"].close()
 
 
 async def getSpider(ctx, url):
