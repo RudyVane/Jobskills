@@ -14,6 +14,7 @@ def setup(app):
     """
     Wrap teardown to avoid a circular dependency
     """
+
     @app.teardown_appcontext
     async def teardown_queue(_e):
         queue = g.pop("queue", None)
