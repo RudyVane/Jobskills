@@ -44,7 +44,7 @@ async def message_edit(arq_ctx, dc_ctx, msg: str):
             dc_ctx.edit(Message(content=msg))
         else:
             with StringIO(msg) as buff:
-                dc_ctx.edit(Message(file=("message.txt", buff.buffer, "text/plain")))
+                dc_ctx.edit(Message(file=("message.txt", buff, "text/plain")))
     except HTTPError as e:
         logger.debug(
             "REQUEST\nurl: {}\nbody: {}\nheaders: {}".format(
