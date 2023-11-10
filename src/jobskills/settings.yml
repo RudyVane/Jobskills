@@ -1,6 +1,7 @@
 DEFAULT:
   EXTENSIONS:
     - "jobskills.discord.flask:discord_extension"
+    - "jobskills.discord.jobqueue:setup"
   scraper:
     scrapy:
       BOT_NAME: jobskills.scraper
