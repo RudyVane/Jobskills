@@ -1,7 +1,7 @@
 import logging
 
 import tldextract
-from arq.connections import RedisSettings
+from arq import create_pool
 from crochet import setup
 from scrapy.crawler import CrawlerRunner
 from scrapy.settings import Settings
@@ -31,6 +31,7 @@ configure_logging(scrapy_settings)
 async def startup(ctx):
     ctx["blacklists"] = settings.scraper.blacklists
     ctx["domains"] = settings.scraper.domains
+    ctx["pool"] = await create_pool(settings.redis)
     logger.info("Initialized scraper worker")
 
 
@@ -96,4 +97,4 @@ class WorkerSettings:
     queue_name = "arq:scraper"
     on_startup = startup
     on_shutdown = shutdown
-    redis_settings = RedisSettings.from_dsn(settings.redis.dsn)
+    redis_settings = settings.redis

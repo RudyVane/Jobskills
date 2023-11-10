@@ -31,8 +31,6 @@ DEFAULT:
   discord:
     msg_max_len: 2000
 DEVELOPMENT:
-  redis:
-    dsn: redis://localhost:6379
+  redis: redis://localhost:6379
 PRODUCTION:
-  redis:
-    dsn: redis://redis:6379
+  redis: redis://redis:6379
