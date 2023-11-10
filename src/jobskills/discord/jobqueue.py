@@ -2,7 +2,6 @@ from arq import create_pool
 from quart import g
 
 from jobskills.config import settings
-from jobskills.flask import asgi_app as app
 
 
 async def get_queue():
@@ -11,8 +10,12 @@ async def get_queue():
     return g.queue
 
 
-@app.teardown_appcontext
-async def teardown_queue(_e):
-    queue = g.pop("queue", None)
-    if queue is not None:
-        await queue.close()
+def setup(app):
+    """
+    Wrap teardown to avoid a circular dependency
+    """
+    @app.teardown_appcontext
+    async def teardown_queue(_e):
+        queue = g.pop("queue", None)
+        if queue is not None:
+            await queue.close()
