@@ -118,6 +118,7 @@ in {
   docker-image = callPackage ({
     # self,
     lib,
+    curl,
     dockerTools,
     docker-commands,
   }:
@@ -128,7 +129,7 @@ in {
       ];
       config = {
         Env = [
-          "PATH=${lib.makeBinPath [docker-commands]}"
+          "PATH=${lib.makeBinPath [docker-commands curl]}"
         ];
         Entrypoint = ["/usr/bin/env"];
       };
