@@ -23,7 +23,7 @@ arq = "^0.25.0"
 quart = "^0.19"
 dynaconf = "^3.2.3"
 werkzeug = "^3"
-quart-flask-patch = "^0.2.0"
+quart-flask-patch = "^0.3.0"
 aiohttp = "^3.8.6"
 
 [tool.poetry.scripts]
