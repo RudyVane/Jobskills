@@ -1926,13 +1926,13 @@ dotenv = ["python-dotenv"]
 
 [[package]]
 name = "quart-flask-patch"
-version = "0.2.0"
+version = "0.3.0"
 description = "Quart-Flask-Patch is a Quart extension that patches Quart to work with Flask extensions."
 optional = false
 python-versions = "*"
 files = [
-    {file = "quart_flask_patch-0.2.0-py2.py3-none-any.whl", hash = "sha256:3a1b744276d61f05d5d60982794984b0e683391c6e3fea5d1f6545781318330b"},
-    {file = "quart_flask_patch-0.2.0.tar.gz", hash = "sha256:c1cb70333a08157c09b72eea21b903c670333857fb88f84113bc569e782dd7cb"},
+    {file = "quart_flask_patch-0.3.0-py2.py3-none-any.whl", hash = "sha256:b5a1d97a8edee9f40082db278fb491687d712af9bc8eb774830ea6f92790b990"},
+    {file = "quart_flask_patch-0.3.0.tar.gz", hash = "sha256:81dc073698d54ffe1d8c85a556881c13215923a920f9300a02b5005d5447268d"},
 ]
 
 [package.dependencies]
@@ -2628,4 +2628,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "1d96e89be8a2a3f099796050ac4c1dca7b572d9cd706c092aeafcb0cc9553d48"
+content-hash = "76390e03d39527c20db7c1d5893c81dfbcaa9180cf6fd0ca7903dd52529fa8e4"
