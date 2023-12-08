@@ -21,7 +21,7 @@ services:
     ports:
       - "4040"
   proxy:
-    image: caddy:2.7.5-alpine
+    image: caddy:2.7.6-alpine
     configs:
       - source: caddyfile
         target: /etc/caddy/Caddyfile
