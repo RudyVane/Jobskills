@@ -32,7 +32,7 @@ dump_commands = "jobskills.discord.commands:dump"
 
 [tool.poetry.group.dev.dependencies]
 ipython = "^8.14.0"
-pytest = "^7.4.2"
+pytest = "^8.0.0"
 
 [tool.pytest.ini_options]
 addopts = ["--import-mode=importlib"]
