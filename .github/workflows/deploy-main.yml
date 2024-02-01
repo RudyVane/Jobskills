@@ -28,7 +28,7 @@ jobs:
         with:
           extra-conf: |
             max-jobs = 0
-      - uses: DeterminateSystems/magic-nix-cache-action@v2
+      - uses: DeterminateSystems/magic-nix-cache-action@v3
       - name: Login to ghcr.io
         run: |
           nix run .#skopeo -- login \
