@@ -6,11 +6,11 @@ in {
     python3,
     poetry,
   }: let
-    overrides = poetry2nix.overrides.withDefaults (_self: _super: {
-      /*
-      aiofiles = super.aiofiles.overridePythonAttrs (old: {
-        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.hatchling];
+    overrides = poetry2nix.overrides.withDefaults (self: super: {
+      twisted = super.twisted.overridePythonAttrs (old: {
+        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [self.hatchling self.hatch-fancy-pypi-readme];
       });
+      /*
       dynaconf = super.dynaconf.overridePythonAttrs (old: {
         nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.setuptools];
       });
