@@ -6,9 +6,9 @@ in {
     python3,
     poetry,
   }: let
-    overrides = poetry2nix.overrides.withDefaults (_self: super: {
+    overrides = poetry2nix.overrides.withDefaults (self: super: {
       twisted = super.twisted.overridePythonAttrs (old: {
-        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.hatchling super.hatch-fancy-pypi-readme];
+        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [self.hatchling self.hatch-fancy-pypi-readme];
       });
       /*
       dynaconf = super.dynaconf.overridePythonAttrs (old: {
