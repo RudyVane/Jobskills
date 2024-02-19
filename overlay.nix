@@ -8,7 +8,7 @@ in {
   }: let
     overrides = poetry2nix.overrides.withDefaults (_self: super: {
       twisted = super.twisted.overridePythonAttrs (old: {
-        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.hatchling];
+        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [super.hatchling super.hatch-fancy-pypi-readme super.incremental];
       });
       /*
       dynaconf = super.dynaconf.overridePythonAttrs (old: {
