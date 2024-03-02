@@ -21,7 +21,8 @@ in {
     });
 
     sharedAttrs = {
-      projectDir = with final.lib.fileset;
+      projectDir = ./.;
+      src = with final.lib.fileset;
         toSource {
           root = ./.;
           fileset = unions [
