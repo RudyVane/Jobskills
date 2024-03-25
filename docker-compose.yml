@@ -3,7 +3,7 @@ services:
   app:
     # build:
     #   context: .
-    image: ghcr.io/rudyvane/jobskills:latest
+    image: ghcr.io/rudyvane/jobskills:ww89yrvmy6p4qkm7bs0sjnz7c3r3zjxm
     command:
       - "discord-endpoint"
       - "-b"
@@ -23,13 +23,13 @@ services:
       - ngrok_tunnel_bridge
       - default
   scrape_worker:
-    image: ghcr.io/rudyvane/jobskills:latest
+    image: ghcr.io/rudyvane/jobskills:ww89yrvmy6p4qkm7bs0sjnz7c3r3zjxm
     command:
       - "scrape-worker"
     environment:
       - ENV_FOR_DYNACONF=production
   discord_worker:
-    image: ghcr.io/rudyvane/jobskills:latest
+    image: ghcr.io/rudyvane/jobskills:ww89yrvmy6p4qkm7bs0sjnz7c3r3zjxm
     command:
       - "discord-worker"
     environment:
