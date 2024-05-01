@@ -156,19 +156,18 @@ trio = ["trio (>=0.23)"]
 
 [[package]]
 name = "arq"
-version = "0.25.0"
+version = "0.26.0"
 description = "Job queues in python with asyncio and redis"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "arq-0.25.0-py3-none-any.whl", hash = "sha256:db072d0f39c0bc06b436db67ae1f315c81abc1527563b828955670531815290b"},
-    {file = "arq-0.25.0.tar.gz", hash = "sha256:d176ebadfba920c039dc578814d19b7814d67fa15f82fdccccaedb4330d65dae"},
+    {file = "arq-0.26.0-py3-none-any.whl", hash = "sha256:6884bc56b88565243e59a2615c04aad56bba6de23432adecfb653d79ec9d35e9"},
+    {file = "arq-0.26.0.tar.gz", hash = "sha256:73867aeaa366033c7c7f071821bddca734bcf5735f04ae277de477f0ed3938a0"},
 ]
 
 [package.dependencies]
 click = ">=8.0"
-redis = {version = ">=4.2.0", extras = ["hiredis"]}
-typing-extensions = ">=4.1.0"
+redis = {version = ">=4.2.0,<5", extras = ["hiredis"]}
 
 [package.extras]
 watch = ["watchfiles (>=0.16)"]
@@ -1987,17 +1986,17 @@ test = ["timeout-decorator"]
 
 [[package]]
 name = "redis"
-version = "5.0.3"
+version = "4.6.0"
 description = "Python client for Redis database and key-value store"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "redis-5.0.3-py3-none-any.whl", hash = "sha256:5da9b8fe9e1254293756c16c008e8620b3d15fcc6dde6babde9541850e72a32d"},
-    {file = "redis-5.0.3.tar.gz", hash = "sha256:4973bae7444c0fbed64a06b87446f79361cb7e4ec1538c022d696ed7a5015580"},
+    {file = "redis-4.6.0-py3-none-any.whl", hash = "sha256:e2b03db868160ee4591de3cb90d40ebb50a90dd302138775937f6a42b7ed183c"},
+    {file = "redis-4.6.0.tar.gz", hash = "sha256:585dc516b9eb042a619ef0a39c3d7d55fe81bdb4df09a52c9cdde0d07bf1aa7d"},
 ]
 
 [package.dependencies]
-async-timeout = {version = ">=4.0.3", markers = "python_full_version < \"3.11.3\""}
+async-timeout = {version = ">=4.0.2", markers = "python_full_version <= \"3.11.2\""}
 hiredis = {version = ">=1.0.0", optional = true, markers = "extra == \"hiredis\""}
 
 [package.extras]
@@ -2658,4 +2657,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "bf3815708f6a4c265f56ff69c37190ee7cb2aa24772d6e18aeb9a5b27e8bc4eb"
+content-hash = "038fce1c779666589b5eddfff5a6b6e294bceeb96e5fe3ddb1f067f103c73f61"
