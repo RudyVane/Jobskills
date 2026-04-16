@@ -156,19 +156,18 @@ trio = ["trio (>=0.23)"]
 
 [[package]]
 name = "arq"
-version = "0.25.0"
+version = "0.28.0"
 description = "Job queues in python with asyncio and redis"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.9"
 files = [
-    {file = "arq-0.25.0-py3-none-any.whl", hash = "sha256:db072d0f39c0bc06b436db67ae1f315c81abc1527563b828955670531815290b"},
-    {file = "arq-0.25.0.tar.gz", hash = "sha256:d176ebadfba920c039dc578814d19b7814d67fa15f82fdccccaedb4330d65dae"},
+    {file = "arq-0.28.0-py3-none-any.whl", hash = "sha256:b1696bf5614d60f4172a2c0cbdc177e23ba03a5eb9acc29bd8181f4ea71fff94"},
+    {file = "arq-0.28.0.tar.gz", hash = "sha256:a458188aefc2d7ee17d136f80d8fa8df1d6eba4ceebdead87e9f172d027dc311"},
 ]
 
 [package.dependencies]
 click = ">=8.0"
-redis = {version = ">=4.2.0", extras = ["hiredis"]}
-typing-extensions = ">=4.1.0"
+redis = {version = ">=4.2.0,<6", extras = ["hiredis"]}
 
 [package.extras]
 watch = ["watchfiles (>=0.16)"]
@@ -2658,4 +2657,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "bf3815708f6a4c265f56ff69c37190ee7cb2aa24772d6e18aeb9a5b27e8bc4eb"
+content-hash = "0117cb626f76e64bb9dc6fd20de8245fee815b6f58c4dab94815c79597473726"
